@@ -1,6 +1,6 @@
 COMP4711 SET 4R
 Group The-real-jim-parry-for-real-this-time 
-Jason Sekhon(Pilot), Brayden Traas(Co-pilot), Eric Lin(Mate), Morris Arroyo(Mate)
+Jason Sekhon(Pilot), Brayden Traas(Co-pilot), Eric Lin(Cook), Morris Arroyo(Stewardess)
 
 -------------------------
 * Brayden - Added new models
