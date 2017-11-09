@@ -3,6 +3,8 @@ Group The-real-jim-parry-for-real-this-time
 Jason Sekhon(Captain), Brayden Traas(Mate), Eric Lin(Mate), Morris Arroyo(Mate)
 
 -------------------------
+* added session save path to tmp folder (MA)
+
 * added flights to welcome page.
 
 * info controller (accessable through url /info/...) and cleanup
