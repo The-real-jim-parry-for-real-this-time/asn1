@@ -21,16 +21,16 @@ class Fleet extends Application
 	{
 		$this->data['pagebody'] = 'fleet_index';
 
-		$this->data['airplanes'] = $this->airplane->all();
+		$this->data['Fleet'] = $this->airplane->all();
 
 		$this->render();
 	}
 
 	public function show($key) {
 
-        $this->data['pagebody'] = 'airplane';
+        $this->data['pagebody'] = 'Fleet';
 
-        $this->data['airplane'] = [$this->airplane->get($key)];
+        $this->data['Fleet'] = [$this->airplane->get($key)];
 
         $this->render();
     }

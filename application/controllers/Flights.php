@@ -19,7 +19,7 @@ class Flights extends Application
 	 */
 	public function index()
 	{
-	    //require_once '../models/Flight.php';
+	    //require_once '../models/Flightss.php';
 
 		$this->data['pagebody'] = 'flights_index';
 		$this->data['flights'] = $this->flight->all();
