@@ -5,38 +5,22 @@
  *
  * @author Morris Arroyo
  */
-class Airport extends CI_Model
+class Airport extends CSV_Model
 {
-    var $data = array(
-         '0' => array('code' => 'YXT', 'type' => 'base'
-                     ,'name' => 'Northwest Regional Airport Terrace-Kitimat (Terrace Airport)' )
-        ,'1' => array('code' => 'XQU', 'type' => 'dest', 'name' => "Qualicum Beach Airport" )
-        ,'2' => array('code' => 'YYD', 'type' => 'dest', 'name' => "Smithers Airport")
-        ,'3' => array('code' => 'ZST', 'type' => 'dest', 'name' => "Stewart Aerodrome")
-//            'base' => array()
-    );
-
     // Constructor
     public function __construct()
     {
-        parent::__construct();
-
-        foreach ($this->data as $key => $record)
-        {
-            $record['key'] = $key;
-            $this->data[$key] = $record;
-        }
+        parent::__construct(APPPATH . '../data/airport.csv', 'id');
     }
 
-    // Retrieve a single airport, null if not found
-    public function get($which)
+    public function rules()
     {
-        return !isset($this->data[$which]) ? null : $this->data[$which];
-    }
-
-    //Retrieve all of the airports
-    public function all()
-    {
-        return $this->data;
+        $config = array(
+            ['field' => 'id', 'label' => 'airport', 'rules' => 'alpha_numeric_spaces|max_length[64]'],
+            ['field' => 'code', 'label' => 'Code', 'rules' => 'alpha_numeric_spaces|max_length[64]'],
+            ['field' => 'type', 'label' => 'Type', 'rules' => 'alpha_numeric_spaces|max_length[64]'],
+            ['field' => 'name', 'label' => 'Name', 'rules' => 'alpha_numeric_spaces|max_length[64]'],
+        );
+        return $config;
     }
 }

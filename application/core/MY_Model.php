@@ -10,7 +10,7 @@ if (!defined('BASEPATH'))
  * @copyright           Copyright (c) 2010-2014, James L. Parry
  * ------------------------------------------------------------------------
  */
-interface Data_mapper {
+interface DataMapper {
 //---------------------------------------------------------------------------
 //  Utility methods
 //---------------------------------------------------------------------------
@@ -136,7 +136,7 @@ interface Data_mapper {
  * @copyright           Copyright (c) 2010-2014, James L. Parry
  * ------------------------------------------------------------------------
  */
-class MY_Model extends CI_Model implements Data_mapper {
+class MY_Model extends CI_Model implements DataMapper {
 
 	protected $_tableName;   // Which table is this a model for?
 	protected $_keyField; // name of the primary key field
@@ -477,5 +477,7 @@ class MY_Model2 extends MY_Model {
 	}
 
 }
-
+include_once 'RDB_Model.php';	// backed by an RDB
+include_once 'Memory_Model.php';	// In-memory only
+include_once 'CSV_Model.php';	// CSV persisted
 /* End of file */

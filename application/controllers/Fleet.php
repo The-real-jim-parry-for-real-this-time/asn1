@@ -19,19 +19,23 @@ class Fleet extends Application
 	 */
 	public function index()
 	{
+		foreach ($this->Airplanes->all() as $airplane){
+			$airplanes[] = (array) $airplane;
+		}
+
 		$this->data['pagebody'] = 'fleet_index';
 
-		$this->data['Fleet'] = $this->airplane->all();
-
+		$this->data['fleet'] = $airplanes;
+		
 		$this->render();
 	}
 
 	public function show($key) {
 
-        $this->data['pagebody'] = 'Fleet';
-
-        $this->data['Fleet'] = [$this->airplane->get($key)];
-
+		$this->data['pagebody'] = 'airplane';
+		
+		$this->data['airplane'][] = (array) $this->Airplanes->get($key);
+		
         $this->render();
     }
 
