@@ -20,11 +20,11 @@
 
     <table class="fleet-table">
         <tr><th>Airplane Model</th></tr>
-    {airplanes}
+    {fleet}
         <tr><b></b>
-            <td><a href="/Fleet/{key}">{model}</a></td>
+            <td><a href="/Fleet/{id}">{model}</a></td>
 
-    {/airplanes}
+    {/fleet}
     </table>
 
 

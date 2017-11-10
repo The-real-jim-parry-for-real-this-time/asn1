@@ -20,9 +20,11 @@ class Flights extends Application
 	public function index()
 	{
 	    //require_once '../models/Flights.php';
-
+		foreach ($this->FlightSchedule->all() as $flight){
+			$flightSchedule[] = (array) $flight;
+		}
 		$this->data['pagebody'] = 'flights_index';
-		$this->data['flights'] = $this->flight->all();
+		$this->data['flights'] = $flightSchedule;
 		$this->render(); 
 	}
 
