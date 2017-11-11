@@ -3,6 +3,8 @@ Group The-real-jim-parry-for-real-this-time
 Jason Sekhon(Pilot), Brayden Traas(Co-pilot), Eric Lin(Cook), Morris Arroyo(Stewardess)
 
 -------------------------
+* Morris - added session save path to tmp folder 
+
 * Brayden - Added new models
 
 * added flights to welcome page.
