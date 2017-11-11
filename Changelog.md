@@ -1,9 +1,11 @@
 COMP4711 SET 4R
 Group The-real-jim-parry-for-real-this-time 
-Jason Sekhon(Captain), Brayden Traas(Mate), Eric Lin(Mate), Morris Arroyo(Mate)
+Jason Sekhon(Pilot), Brayden Traas(Co-pilot), Eric Lin(Cook), Morris Arroyo(Stewardess)
 
 -------------------------
-* added session save path to tmp folder (MA)
+* Morris - added session save path to tmp folder 
+
+* Brayden - Added new models
 
 * added flights to welcome page.
 
@@ -22,3 +24,4 @@ Jason Sekhon(Captain), Brayden Traas(Mate), Eric Lin(Mate), Morris Arroyo(Mate)
 * Added changelog 
 
 * Added .idea folder to .gitignore
+

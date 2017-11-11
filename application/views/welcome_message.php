@@ -24,7 +24,7 @@
     {/base}
     {dest}
         <tr>
-            <td>Destination {key}</td>
+            <td>Destination {id}</td>
             <td>{name} ({code})</td>
         </tr>
     {/dest}
@@ -34,7 +34,7 @@
         </tr>
     {flights}
         <tr>
-            <td>Flight {key}</td>
+            <td>Flight {id}</td>
             <td>{depart_airport}{name}{/depart_airport} to {arrive_airport}{name}{/arrive_airport} ({code})</td>
         </tr>
     {/flights}
