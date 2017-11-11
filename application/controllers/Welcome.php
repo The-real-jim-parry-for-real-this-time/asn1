@@ -36,7 +36,7 @@ class Welcome extends Application
                 $dest[] = (array) $airport;
             }
 		}
-	    $base[]         = (array) $this->Airport->get(0);
+		$base[]         = (array) $this->Airport->get(0);
 		$this->data['pagebody'] = 'welcome_message';
 	    $this->data['flights'] = $flights;
         $this->data['base'] = $base;
