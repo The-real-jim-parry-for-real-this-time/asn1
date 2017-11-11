@@ -3,21 +3,23 @@ Group The-real-jim-parry-for-real-this-time
 Jason Sekhon(Pilot), Brayden Traas(Co-pilot), Eric Lin(Cook), Morris Arroyo(Stewardess)
 
 -------------------------
-* Morris - added session save path to tmp folder 
+* user roles for owner and guest
 
-* Brayden - Added new models
+* Added session save path to tmp folder 
 
-* added flights to welcome page.
+* Added new models
 
-* info controller (accessable through url /info/...) and cleanup
+* Added flights to welcome page.
 
-* added fleet model, controller and view
+* Info controller (accessable through url /info/...) and cleanup
 
-* added flights model, controller and view
+* Added fleet model, controller and view
 
-* updated welcome page
+* Added flights model, controller and view
 
-* menubar and boostrap integration. Cleaned welcome page
+* Updated welcome page
+
+* Menubar and boostrap integration. Cleaned welcome page
 
 * Added Airport and Airport models
 
