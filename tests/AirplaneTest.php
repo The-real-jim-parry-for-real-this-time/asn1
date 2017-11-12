@@ -7,6 +7,8 @@ if (! class_exists('PHPUnit_Framework_TestCase')) {
  * This test covers the airplane model.
  * Airplane.php.
  *
+ * @property Airplane $airplane
+ *
  * @author Morris Arroyo
  */
 class AirplaneTest extends PHPUnit_Framework_TestCase
@@ -45,19 +47,19 @@ class AirplaneTest extends PHPUnit_Framework_TestCase
             $value .= $this->first_char;
         }
         $this->airplane->id = $value;
-        $this->assertEquals($this->airplane->getId(), $value);
+        $this->assertEquals($this->airplane->id, $value);
     }
 
     public function testIdCharsValid() {
         $value = $this->first_char . "abcde12345";
         $this->airplane->id = $value;
-        $this->assertEquals($this->airplane->getId(), $value);
+        $this->assertEquals($this->airplane->id, $value);
     }
 
     public function testIdFirstCharValid() {
         $value = $this->first_char . "00000";
         $this->airplane->id = $value;
-        $this->assertEquals($this->airplane->getId(), $value);
+        $this->assertEquals($this->airplane->id, $value);
     }
 
     public function testManufacturerMaxValid() {
@@ -66,7 +68,7 @@ class AirplaneTest extends PHPUnit_Framework_TestCase
             $value .= $this->first_char;
         }
         $this->airplane->manufacturer = $value;
-        $this->assertEquals($this->airplane->getManufacturer(), $value);
+        $this->assertEquals($this->airplane->manufacturer, $value);
     }
 
     /*Invalid tests on Airplane*/
@@ -76,18 +78,18 @@ class AirplaneTest extends PHPUnit_Framework_TestCase
             $value .= $this->first_char;
         }
         $this->airplane->id = $value;
-        $this->assertEquals($this->airplane->getId(), $value);
+        $this->assertNotEquals($this->airplane->id, $value);
     }
 
     public function testIdCharsInvalid() {
         $value = $this->first_char . "abcde#!@#$#";
         $this->airplane->id = $value;
-        $this->assertEquals($this->airplane->getId(), $value);
+        $this->assertNotEquals($this->airplane->id, $value);
     }
 
     public function testIdFirstCharInvalid() {
         $value = "x00000";
         $this->airplane->id = $value;
-        $this->assertEquals($this->airplane->getId(), $value);
+        $this->assertNotEquals($this->airplane->id, $value);
     }
 }
