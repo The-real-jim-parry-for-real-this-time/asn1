@@ -1,0 +1,1 @@
+<a href="/Fleet/add"><input type="button" value="Add a new flight"/></a>

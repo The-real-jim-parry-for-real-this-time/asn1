@@ -18,13 +18,10 @@
 <!--    0 => array('code' => IDENTIFIER_CHAR . "001", 'depart_airport' => 0, 'depart_time' => '12:25', 'arrive_airport' => 1, 'arrive_time' => '23:15' )
 -->
 
+{add}
     <table class="fleet-table">
         <tr><th>Airplane Model</th></tr>
-    {fleet}
-        <tr><b></b>
-            <td><a href="/Fleet/{id}">{model}</a></td>
-
-    {/fleet}
+        {fl}
     </table>
 
 

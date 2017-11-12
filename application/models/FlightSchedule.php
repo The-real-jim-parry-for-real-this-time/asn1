@@ -27,13 +27,9 @@ class FlightSchedule extends CSV_Model
     public function rules()
     {
         $config = array(
-            ['field' => 'id', 'label' => 'Plane', 'rules' => 'alpha_numeric_spaces|max_length[64]'],
-            ['field' => 'code', 'label' => 'Manufacturer', 'rules' => 'alpha_numeric_spaces|max_length[64]'],
-            ['field' => 'airplanes', 'label' => 'Model', 'rules' => 'integer'],
-            ['field' => 'depart_airport', 'label' => 'Price', 'rules' => 'integer'],
-            ['field' => 'depart_time', 'label' => 'Seats', 'rules' => 'alpha_numeric_spaces|max_length[64]'],
-            ['field' => 'arrive_airport', 'label' => 'Reach', 'rules' => 'integer'],
-            ['field' => 'arrive_time', 'label' => 'Cruise', 'rules' => 'alpha_numeric_spaces|max_length[64]']
+            ['field' => 'airplanes', 'label' => 'airplane', 'rules' => 'integer'],
+            ['field' => 'depart_airport', 'label' => 'depart airport', 'rules' => 'integer'],
+            ['field' => 'arrive_airport', 'label' => 'arrive airport', 'rules' => 'integer']
         );
         return $config;
     }
