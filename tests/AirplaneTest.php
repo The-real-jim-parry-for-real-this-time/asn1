@@ -84,15 +84,7 @@ class AirplaneTest extends PHPUnit_Framework_TestCase
         $this->airplane->id = $value;
         $this->assertStringStartsWith($this->first_char, $this->airplane->id);
     }
-
-    public function testManufacturerMaxValid() {
-        $value = "";
-        for($i = 0; $i < 64; $i++) {
-            $value .= $this->first_char;
-        }
-        $this->airplane->manufacturer = $value;
-        $this->assertEquals($this->airplane->manufacturer, $value);
-    }
+  
     //Invalid tests for id
 
     //String longer than max allowable
@@ -180,8 +172,8 @@ class AirplaneTest extends PHPUnit_Framework_TestCase
     public function testPriceMinValid()
     {
         $value = $this->min_valid_int;
-        $this->airplane->price = $value;
-        $this->assertNotEquals($this->airplane->price, $value);
+        $this->aiplane->price = $value;
+        $this->assertEquals($this->airplane->price, $value);
     }
 
     //Invalid tests for price
