@@ -55,21 +55,24 @@ class Flight extends Entity
     }
 
 
-
+    /**
+     * @param $value Integer
+     */
     public function setId($value) {
 
 
         // check valid character type
-        $alNum = preg_replace('/[^a-z0-9 ]/i', '', $value);
+        $alNum = preg_replace('/[^0-9]/i', '', $value);
         if($value != $alNum) return;
 
-        if(strlen($value) > 64) {
-            return;
-        }
+        if($value != intval($value)) return;
 
         $this->id = $value;
     }
 
+    /**
+     * @param $value String (Airport code eg. YVR)
+     */
     public function setCode($value){
 
         // check valid character type
@@ -83,6 +86,9 @@ class Flight extends Entity
         $this -> code = $value;
     }
 
+    /**
+     * @param $value integer Airplane ID
+     */
     public function setAirplane($value){
         $alNum = preg_replace('/[^0-9]/i', '', $value);
         if($value != $alNum) return;
@@ -99,6 +105,9 @@ class Flight extends Entity
         $this -> airplane = $value;
     }
 
+    /**
+     * @param $value integer Airport ID
+     */
     public function setDepartAirport($value){
 
         $alNum = preg_replace('/[^0-9]/i', '', $value);
@@ -109,6 +118,9 @@ class Flight extends Entity
         $this -> departAirport = $value;
     }
 
+    /**
+     * @param $value Integer Depart timestamp
+     */
     public function setDepartTime($value){
 
         // check valid character type
@@ -132,6 +144,9 @@ class Flight extends Entity
         $this -> departTime = $value;
     }
 
+    /**
+     * @param $value Integer airport ID
+     */
     public function setArriveAirport($value){
 
         $alNum = preg_replace('/[^0-9]/i', '', $value);
@@ -142,6 +157,9 @@ class Flight extends Entity
         $this -> arriveAirport = $value;
     }
 
+    /**
+     * @param $value Integer arrive timestamp
+     */
     public function setArriveTime($value){
 
         if($value != intval($value)) return;
