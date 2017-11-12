@@ -27,59 +27,6 @@ class Airplane extends Entity
 //['field' => 'takeoff', 'label' => 'Takeoff', 'rules' => 'integer'],
 //['field' => 'hourly', 'label' => 'Hourly', 'rules' => 'integer'],
 
-    /*Valid tests on Airplane*/
-    public function testIdMaxValid() {
-        $value = "";
-        for($i = 0; $i < 64; $i++) {
-            $value .= $this->first_char;
-        }
-        $this->airplane->id = $value;
-        $this->assertEquals($this->airplane->getId(), $value);
-    }
-
-    public function testIdCharsValid() {
-        $value = $this->first_char . "abcde12345";
-        $this->airplane->id = $value;
-        $this->assertEquals($this->airplane->getId(), $value);
-    }
-
-    public function testIdFirstCharValid() {
-        $value = $this->first_char . "00000";
-        $this->airplane->id = $value;
-        $this->assertEquals($this->airplane->getId(), $value);
-    }
-
-    public function testManufacturerMaxValid() {
-        $value = "";
-        for($i = 0; $i < 64; $i++) {
-            $value .= $this->first_char;
-        }
-        $this->airplane->manufacturer = $value;
-        $this->assertEquals($this->airplane->getManufacturer(), $value);
-    }
-
-    /*Invalid tests on Airplane*/
-    public function testIdMaxInvalid() {
-        $value = "";
-        for($i = 0; $i < 65; $i++)  {
-            $value .= $this->first_char;
-        }
-        $this->airplane->id = $value;
-        $this->assertEquals($this->airplane->getId(), $value);
-    }
-
-    public function testIdCharsInvalid() {
-        $value = $this->first_char . "abcde#!@#$#";
-        $this->airplane->id = $value;
-        $this->assertEquals($this->airplane->getId(), $value);
-    }
-
-    public function testIdFirstCharInvalid() {
-        $value = "x00000";
-        $this->airplane->id = $value;
-        $this->assertEquals($this->airplane->getId(), $value);
-    }
-
     // Constructor
     public function __construct()
     {
@@ -100,20 +47,46 @@ class Airplane extends Entity
     }
 
     public function setManufacturer($value){
+
+        $alNum = preg_replace('/[^a-z0-9 ]/i', '', $value);
+        if($value != $alNum) return;
+
+        if(strlen($value) > 64) {
+            return;
+        }
+
         $this -> manufacturer = $value;
     }
 
     public function setModel($value){
+
+        $alNum = preg_replace('/[^0-9]/i', '', $value);
+        if($value != $alNum) return;
+
+        if($value != intval($value)) return;
+
         $this -> model = $value;
     }
 
 
     public function setPrice($value){
+
+        $alNum = preg_replace('/[^0-9]/i', '', $value);
+        if($value != $alNum) return;
+
+        if($value != intval($value)) return;
+
         $this -> price = $value;
     }
 
 
     public function setSeats($value){
+
+        $alNum = preg_replace('/[^0-9]/i', '', $value);
+        if($value != $alNum) return;
+
+        if($value != intval($value)) return;
+
 
         $this -> seats = $value;
     }
@@ -121,11 +94,24 @@ class Airplane extends Entity
 
     public function setReach($value){
 
+        $alNum = preg_replace('/[^0-9]/i', '', $value);
+        if($value != $alNum) return;
+
+        if($value != intval($value)) return;
+
+
         $this -> reach = $value;
     }
 
 
     public function setCruise($value){
+
+        $alNum = preg_replace('/[^0-9]/i', '', $value);
+        if($value != $alNum) return;
+
+        if($value != intval($value)) return;
+
+        $this -> model = $value;
 
         $this -> cruise = $value;
     }
@@ -133,11 +119,27 @@ class Airplane extends Entity
 
     public function setTakeoff($value){
 
+
+        $alNum = preg_replace('/[^0-9]/i', '', $value);
+        if($value != $alNum) return;
+
+        if($value != intval($value)) return;
+
+        $this -> model = $value;
+
         $this -> takeoff = $value;
     }
 
 
     public function setHourly($value){
+
+        $alNum = preg_replace('/[^0-9]/i', '', $value);
+        if($value != $alNum) return;
+
+        if($value != intval($value)) return;
+
+        $this -> model = $value;
+
 
         $this -> hourly = $value;
     }
