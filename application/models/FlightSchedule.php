@@ -20,9 +20,6 @@ class FlightSchedule extends CSV_Model
             $this->get($key)->airplanes = [(new Airplanes)->get($record->airplanes)];
             $this->get($key)->depart_airport = [(new Airport)->get($record->depart_airport)];
             $this->get($key)->arrive_airport = [(new Airport)->get($record->arrive_airport)];
-            //$this->data[$key]['airplanes'] = [(new Airplanes)->get($record['airplanes'])];
-            //$this->data[$key]['depart_airport'] = [(new Airport)->get($record['depart_airport'])];
-            //$this->data[$key]['arrive_airport'] = [(new Airport)->get($record['arrive_airport'])];   
         }
 
     }
