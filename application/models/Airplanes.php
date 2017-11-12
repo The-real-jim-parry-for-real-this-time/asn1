@@ -16,9 +16,8 @@ class Airplanes extends CSV_Model
     public function rules()
     {
         $config = array(
-            ['field' => 'id', 'label' => 'Plane', 'rules' => 'alpha_numeric_spaces|max_length[64]'],
-            ['field' => 'manufacturer', 'label' => 'Manufacturer', 'rules' => 'alpha_numeric_spaces|max_length[64]'],
-            ['field' => 'model', 'label' => 'Model', 'rules' => 'integer'],
+            ['field' => 'manufacturer', 'label' => 'Manufacturer', 'rules' => 'required|alpha_numeric_spaces|max_length[64]'],
+            ['field' => 'model', 'label' => 'Model', 'rules' => 'required|max_length[64]'],
             ['field' => 'price', 'label' => 'Price', 'rules' => 'integer'],
             ['field' => 'seats', 'label' => 'Seats', 'rules' => 'integer'],
             ['field' => 'reach', 'label' => 'Reach', 'rules' => 'integer'],
