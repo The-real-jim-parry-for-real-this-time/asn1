@@ -111,8 +111,6 @@ class Airplane extends Entity
 
         if($value != intval($value)) return;
 
-        $this -> model = $value;
-
         $this -> cruise = $value;
     }
 
@@ -125,8 +123,6 @@ class Airplane extends Entity
 
         if($value != intval($value)) return;
 
-        $this -> model = $value;
-
         $this -> takeoff = $value;
     }
 
@@ -137,8 +133,6 @@ class Airplane extends Entity
         if($value != $alNum) return;
 
         if($value != intval($value)) return;
-
-        $this -> model = $value;
 
 
         $this -> hourly = $value;
