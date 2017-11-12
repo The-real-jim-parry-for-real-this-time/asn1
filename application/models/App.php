@@ -14,7 +14,7 @@ class App extends CI_Model
         $airportsRaw = file_get_contents('https://wacky.jlparry.com/info/airports/');
 		$airplanesRaw = file_get_contents('https://wacky.jlparry.com/info/airplanes/');
 		foreach ($airportsRaw as $airport){
-			$this->airports[] = $airport['airport'];
+			$this->airports[] = $airport['Airports'];
 		}
 		foreach ($airplanesRaw as $airplane){
 			$this->manufacturers[] = $airplane['manufacturer'];

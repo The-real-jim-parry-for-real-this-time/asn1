@@ -5,7 +5,7 @@
  *
  * @author Morris Arroyo
  */
-class Airport extends CSV_Model
+class Airports extends CSV_Model
 {
     // Constructor
     public function __construct()
@@ -16,7 +16,7 @@ class Airport extends CSV_Model
     public function rules()
     {
         $config = array(
-            ['field' => 'id', 'label' => 'airport', 'rules' => 'alpha_numeric_spaces|max_length[64]'],
+            ['field' => 'id', 'label' => 'Airports', 'rules' => 'alpha_numeric_spaces|max_length[64]'],
             ['field' => 'code', 'label' => 'Code', 'rules' => 'alpha_numeric_spaces|max_length[64]'],
             ['field' => 'type', 'label' => 'Type', 'rules' => 'alpha_numeric_spaces|max_length[64]'],
             ['field' => 'name', 'label' => 'Name', 'rules' => 'alpha_numeric_spaces|max_length[64]'],

@@ -9,7 +9,7 @@ class Flight extends Entity
 {
     protected $id;
     protected $code;
-    protected $airplanes;
+    protected $airplane;
     protected $departAirport;
     protected $departTime;
     protected $arriveAirport;
@@ -25,11 +25,35 @@ class Flight extends Entity
             ['field' => 'arrive_time', 'label' => 'Cruise', 'rules' => 'alpha_numeric_spaces|max_length[64]']
      */
 
+
+    /*
+     * There are some restrictions on your schedule:
+	• no departures before 08:00
+	• no landings after 22:00
+	• minimum 30 minutes between a plane's landing and any subsequent departure
+	• all of your fleet must be back at your airline base by the end of the day
+	• flight times need to be reasonable, based on distance between airports, airplane cruising speed,
+            and a 10 minute buffer added to each flight in order to reach cruising/landing speed and altitude
+     */
+
     // Constructor
     public function __construct()
     {
         parent::__construct();
     }
+
+    /**
+     * @param $departure integer timestamp
+     * @param $arrival integer timestamp
+     * @param $airports array
+     * @param $plane integer id
+     * @return bool on valid
+     */
+    protected static function validateFlightTimes($departure, $arrival, $airports, $plane) {
+
+
+    }
+
 
 
     public function setId($value) {
@@ -59,13 +83,20 @@ class Flight extends Entity
         $this -> code = $value;
     }
 
-    public function setAirplanes($value){
+    public function setAirplane($value){
         $alNum = preg_replace('/[^0-9]/i', '', $value);
         if($value != $alNum) return;
 
         if($value != intval($value)) return;
 
-        $this -> airplanes = $value;
+
+        if(isset($this->departTime) && isset($this->arriveTime)) {
+            $valid = (new FlightSchedule)->validatePlaneAvailable($value, $this->departTime, $this->arriveTime);
+            if(!$valid) return;
+        }
+
+
+        $this -> airplane = $value;
     }
 
     public function setDepartAirport($value){
@@ -93,6 +124,11 @@ class Flight extends Entity
         if(date("G",$value) < 8) return; // no departures before 8am
 
 
+        if(isset($this->arriveTime) && isset($this->airplane)) {
+            $valid = (new FlightSchedule)->validatePlaneAvailable($this->airplane, $value, $this->arriveTime);
+            if(!$valid) return;
+        }
+
         $this -> departTime = $value;
     }
 
@@ -111,8 +147,11 @@ class Flight extends Entity
         if($value != intval($value)) return;
 
         if(date("G",$value) > 21) return; // no departures after 22:00
-        
 
+        if(isset($this->departTime) && isset($this->airplane)) {
+            $valid = (new FlightSchedule)->validatePlaneAvailable($this->airplane, $this->departTime, $value);
+            if(!$valid) return;
+        }
 
         $this -> arriveTime = $value;
     }
