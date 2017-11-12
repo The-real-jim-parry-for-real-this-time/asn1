@@ -25,22 +25,23 @@ class Welcome extends Application
 
     public function index()
 	{
-	    $airplanes      = $this->airplane->all();
-	    $flights        = $this->flight->all();
-	    $base           = array(0 => $this->airport->get(0));
-	    $all_airports   = $this->airport->all();
-	    $dest           = array();
-	    foreach ($all_airports as $airport) {
-            if (strcmp($airport['type'],  'dest') == 0) {
-                array_push($dest,$airport);
+		foreach ($this->Airplanes->all() as $airplane){
+			$airplanes[] = (array) $airplane;
+		}
+		foreach ($this->FlightSchedule->all() as $flight){
+			$flights[] = (array) $flight;
+		}
+		foreach ($this->Airport->all() as $airport) {
+            if (strcmp($airport->type, 'dest') == 0) {
+                $dest[] = (array) $airport;
             }
-        }
+		}
+		$base[]         = (array) $this->Airport->get(0);
 		$this->data['pagebody'] = 'welcome_message';
 	    $this->data['flights'] = $flights;
         $this->data['base'] = $base;
         $this->data['dest'] = $dest;
         $this->data['count'] = count($airplanes);
-
 		$this->render();
 	}
 

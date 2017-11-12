@@ -1,22 +1,29 @@
 COMP4711 SET 4R
 Group The-real-jim-parry-for-real-this-time 
-Jason Sekhon(Captain), Brayden Traas(Mate), Eric Lin(Mate), Morris Arroyo(Mate)
+Jason Sekhon(Pilot), Brayden Traas(Co-pilot), Eric Lin(Cook), Morris Arroyo(Stewardess)
 
 -------------------------
-* added flights to welcome page.
+* user roles for owner and guest
 
-* info controller (accessable through url /info/...) and cleanup
+* Added session save path to tmp folder 
 
-* added fleet model, controller and view
+* Added new models
 
-* added flights model, controller and view
+* Added flights to welcome page.
 
-* updated welcome page
+* Info controller (accessable through url /info/...) and cleanup
 
-* menubar and boostrap integration. Cleaned welcome page
+* Added fleet model, controller and view
+
+* Added flights model, controller and view
+
+* Updated welcome page
+
+* Menubar and boostrap integration. Cleaned welcome page
 
 * Added Airport and Airport models
 
 * Added changelog 
 
 * Added .idea folder to .gitignore
+

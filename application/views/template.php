@@ -25,7 +25,7 @@
 			</div>
 
 			<div id="footer" class="span12">
-			<p class="footer">The Real Jim Perry For Real This Time &reg;</p>
+			<p class="footer">The Real Jim Parry For Real This Time &reg;</p>
 			</div>
 			
 		</div>

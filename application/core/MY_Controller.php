@@ -23,7 +23,7 @@ class Application extends CI_Controller
 
 		//  Set basic view parameters
 		$this->data = array ();
-		$this->data['pagetitle'] = 'The Real Jim Perry For Real This Time';
+		$this->data['pagetitle'] = 'The Real Jim Parry For Real This Time Spelled Right This Time (' . $this->session->userdata('userrole') . ')';
 		$this->data['ci_version'] = (ENVIRONMENT === 'development') ? 'CodeIgniter Version <strong>'.CI_VERSION.'</strong>' : '';
 	}
 
