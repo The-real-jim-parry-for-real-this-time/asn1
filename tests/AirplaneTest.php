@@ -59,14 +59,14 @@ class AirplaneTest extends PHPUnit_Framework_TestCase
     //Valid tests for id
 
     //String length equal to max allowable
-    public function testIdMaxValid()
+    public function testIdMaxLengthValid()
     {
         $value = "";
         for ($i = 0; $i < $this->max_valid_strlen; $i++) {
             $value .= $this->first_char;
         }
         $this->airplane->id = $value;
-        $this->assertEquals($this->airplane->id, $value);
+        $this->assertLessThanOrEqual($this->max_valid_strlen, strlen($this->airplane->id));
     }
 
     //String characters limited to alphanumeric characters
@@ -74,7 +74,7 @@ class AirplaneTest extends PHPUnit_Framework_TestCase
     {
         $value = $this->first_char . "abcde12345";
         $this->airplane->id = $value;
-        $this->assertEquals($this->airplane->id, $value);
+        $this->assertTrue(ctype_alnum($this->airplane->id));
     }
 
     //First character equal to first character of group name
@@ -82,28 +82,20 @@ class AirplaneTest extends PHPUnit_Framework_TestCase
     {
         $value = $this->first_char . "00000";
         $this->airplane->id = $value;
-        $this->assertEquals($this->airplane->id, $value);
+        $this->assertStringStartsWith($this->first_char, $this->airplane->id);
     }
-
-//    public function testManufacturerMaxValid() {
-//        $value = "";
-//        for($i = 0; $i < 64; $i++) {
-//            $value .= $this->first_char;
-//        }
-//        $this->airplane->manufacturer = $value;
-//        $this->assertEquals($this->airplane->manufacturer, $value);
-//    }
+  
     //Invalid tests for id
 
     //String longer than max allowable
-    public function testIdMaxInvalid()
+    public function testIdMaxLengthInvalid()
     {
         $value = "";
         for ($i = 0; $i < $this->max_valid_strlen + 1; $i++) {
             $value .= $this->first_char;
         }
         $this->airplane->id = $value;
-        $this->assertNotEquals($this->airplane->id, $value);
+        $this->assertLessThanOrEqual($this->max_valid_strlen, strlen($this->airplane->id));
     }
 
     //String characters including symbols and punctuations
@@ -111,7 +103,7 @@ class AirplaneTest extends PHPUnit_Framework_TestCase
     {
         $value = $this->first_char . "abcde!@#$%^&*()_+{}:\" <>?~`-=[];\',./\\";
         $this->airplane->id = $value;
-        $this->assertNotEquals($this->airplane->id, $value);
+        $this->assertTrue(ctype_alnum($this->airplane->id));
     }
 
     //First character is random alphanumeric character
@@ -119,8 +111,7 @@ class AirplaneTest extends PHPUnit_Framework_TestCase
     {
         $value = "x00000";
         $this->airplane->id = $value;
-        $this->assertNotEquals($this->airplane->id, $value);
-
+        $this->assertStringStartsWith($this->first_char, $this->airplane->id);
     }
 
     // TESTS FOR MANUFACTURER
@@ -128,27 +119,27 @@ class AirplaneTest extends PHPUnit_Framework_TestCase
     // Valid tests for manufacturer
 
     // String equal to max allowable
-    public function testManufacturerMaxValid()
+    public function testManufacturerMaxLengthValid()
     {
         $value = "";
         for ($i = 0; $i < $this->max_valid_strlen; $i++) {
             $value .= "m";
         }
         $this->airplane->manufacturer = $value;
-        $this->assertEquals($this->airplane->manufacturer, $value);
+        $this->assertLessThanOrEqual($this->max_valid_strlen, strlen($this->airplane->manufacturer));
     }
 
     // Invalid tests for manufacturer
 
     // Longer string than max allowable.
-    public function testManufacturerMaxInvalid()
+    public function testManufacturerMaxLengthInvalid()
     {
         $value = "";
         for ($i = 0; $i < $this->max_valid_strlen + 1; $i++) {
             $value .= "m";
         }
         $this->airplane->manufacturer = $value;
-        $this->assertNotEquals($this->airplane->manufacturer, $value);
+        $this->assertLessThanOrEqual($this->max_valid_strlen, strlen($this->airplane->manufacturer));
     }
 
     //TESTS FOR MODEL
@@ -159,7 +150,7 @@ class AirplaneTest extends PHPUnit_Framework_TestCase
     public function testModelMinValid()
     {
         $value = $this->min_valid_int;
-        $this->aiplane->model = $value;
+        $this->airplane->model = $value;
         $this->assertEquals($this->airplane->model, $value);
     }
 
@@ -170,7 +161,7 @@ class AirplaneTest extends PHPUnit_Framework_TestCase
     {
         $value = $this->min_valid_int - 1;
         $this->airplane->model = $value;
-        $this->assertNotEquals($this->aiplane->model, $value);
+        $this->assertNotEquals($this->airplane->model, $value);
     }
 
     //TESTS FOR PRICE
