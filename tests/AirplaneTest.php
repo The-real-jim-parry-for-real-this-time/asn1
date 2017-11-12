@@ -120,6 +120,7 @@ class AirplaneTest extends PHPUnit_Framework_TestCase
         $value = "x00000";
         $this->airplane->id = $value;
         $this->assertNotEquals($this->airplane->id, $value);
+
     }
 
     // TESTS FOR MANUFACTURER
