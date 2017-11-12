@@ -6,7 +6,7 @@
  * Date: 2017-11-11
  * Time: 4:29 PM
  */
-class FlightScheduleTest
+class FlightScheduleListTest
 {
 
 }
