@@ -7,3 +7,5 @@
 !*/cache/index.html
 !*/cache/.htaccess
 /nbproject/private/
+tmp/*
+tests/tmp/*
