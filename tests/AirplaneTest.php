@@ -11,7 +11,7 @@ if (! class_exists('PHPUnit_Framework_TestCase')) {
  *
  * @author Morris Arroyo
  */
-class AirplaneTest //extends PHPUnit_Framework_TestCase
+class AirplaneTest extends PHPUnit_Framework_TestCase
 {
     private $CI;
 

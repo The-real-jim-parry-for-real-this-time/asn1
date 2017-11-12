@@ -42,6 +42,7 @@ class AirplanesListTest extends PHPUnit_Framework_TestCase
         $this->airplanes = new Airplanes();
     }
 
+    //Tests if all airplane models in the list is valid
     public function testAirplanesModelsListValid() {
         $failures = [];
         foreach($this->airplanes->all() as $airplane) {
@@ -60,6 +61,7 @@ class AirplanesListTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    //Tests if all airplane contain the right property value for a given model
     public function testAirplanesListValid() {
         $failures = [];
         foreach($this->airplanes->all() as $airplane) {
