@@ -43,6 +43,16 @@ class Entity extends CI_Model {
         if(!isset($this -> $key))
             return null;
 
+        // and setLastName(...) for $object->last_name =
+        $method = 'get' . str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $key)));
+
+
+
+        if (method_exists($this, $method)) {
+
+            return $this->$method();
+        }
+
         return $this->$key;
     }
 }
