@@ -3,6 +3,12 @@ Group The-real-jim-parry-for-real-this-time
 Jason Sekhon(Pilot), Brayden Traas(Co-pilot), Eric Lin(Cook), Morris Arroyo(Stewardess)
 
 -------------------------
+* Updated airplane model unit test to cover all of airplane model's  properties
+
+* added ./test/tmp/* and ./tmp/ to gitignore
+
+* added phpunit and travis-ci integration
+
 * user roles for owner and guest
 
 * Added session save path to tmp folder 
