@@ -81,12 +81,17 @@ class Flight extends Entity
     public function setDepartTime($value){
 
         // check valid character type
-        $alNum = preg_replace('/[^a-z0-9 ]/i', '', $value);
-        if($value != $alNum) return;
+//        $alNum = preg_replace('/[^a-z0-9 ]/i', '', $value);
+//        if($value != $alNum) return;
+//
+//        if(strlen($value) > 64) {
+//            return;
+//        }
 
-        if(strlen($value) > 64) {
-            return;
-        }
+        if($value != intval($value)) return;
+
+        if(date("G",$value) < 8) return; // no departures before 8am
+
 
         $this -> departTime = $value;
     }
@@ -103,13 +108,11 @@ class Flight extends Entity
 
     public function setArriveTime($value){
 
-        // check valid character type
-        $alNum = preg_replace('/[^a-z0-9 ]/i', '', $value);
-        if($value != $alNum) return;
+        if($value != intval($value)) return;
 
-        if(strlen($value) > 64) {
-            return;
-        }
+        if(date("G",$value) > 21) return; // no departures after 22:00
+        
+
 
         $this -> arriveTime = $value;
     }
