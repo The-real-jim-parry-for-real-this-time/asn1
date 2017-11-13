@@ -28,9 +28,9 @@ class FlightSchedule extends CSV_Model
         $config = array(
             ['field' => 'airplanes', 'label' => 'airplane', 'rules' => 'integer'],
             ['field' => 'depart_airport', 'label' => 'depart airport', 'rules' => 'integer'],
-            ['field' => 'depart_time', 'label' => 'depart time', 'rules' => 'integer'],
+            ['field' => 'depart_time', 'label' => 'depart time', 'rules' => 'required'],
             ['field' => 'arrive_airport', 'label' => 'arrive airport', 'rules' => 'integer'],
-            ['field' => 'arrive_time', 'label' => 'arrive time', 'rules' => 'integer']
+            ['field' => 'arrive_time', 'label' => 'arrive time', 'rules' => 'required']
         );
         return $config;
     }

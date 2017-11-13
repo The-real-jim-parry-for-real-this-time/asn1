@@ -56,7 +56,7 @@ class Flights extends Application
         // if no errors, pass an empty message
         if ( ! isset($this->data['error']))
 			$this->data['error'] = '';
-			var_dump($flight);
+			
 		if (is_object($flight->airplanes[0])){
 			$fields = array(
 				'fairplanes'  	  => form_label('airplanes') 		 . form_dropdown('airplanes', $airplanes, $flight->airplanes[0]->id),
