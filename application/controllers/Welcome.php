@@ -27,7 +27,7 @@ class Welcome extends Application
 	{
 
         //Flight::validatePlaneAvailable(1, 1, 1);
-
+        
 
         foreach ($this->Airplanes->all() as $airplane){
 			$airplanes[] = (array) $airplane;

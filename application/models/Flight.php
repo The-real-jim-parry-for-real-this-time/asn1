@@ -45,11 +45,30 @@ class Flight extends Entity
     /**
      * @param $departure integer timestamp
      * @param $arrival integer timestamp
-     * @param $airports array
+     * @param $departAirport integer id
+     * @param $arriveAirport integer id
      * @param $plane integer id
      * @return bool on valid
      */
-    protected static function validateFlightTimes($departure, $arrival, $airports, $plane) {
+    protected static function validateFlightTimes($departure, $arrival, $departAirport, $arriveAirport, $plane) {
+
+        $dummy_distance = 1000;
+
+        $plane = (new AirPlanes)->get($plane);
+
+        // time = distance / speed
+
+        $cruiseKmPh = $plane->cruise;
+
+        $cruiseKmPm = ($cruiseKmPh / 60);
+
+        $expectedMinutes = ($dummy_distance / $cruiseKmPm) + 10;
+
+        $scheduledMinutes = round(abs($arrival - $departure) / 60,2);
+
+        if($scheduledMinutes < $expectedMinutes) return false;
+
+        else return true;
 
 
     }
@@ -169,9 +188,23 @@ class Flight extends Entity
         if(isset($this->departTime) && isset($this->airplane)) {
             $valid = (new FlightSchedule)->validatePlaneAvailable($this->airplane, $this->departTime, $value);
             if(!$valid) return;
+
         }
 
         $this -> arriveTime = $value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isValid() {
+        $valid = (new FlightSchedule)->validatePlaneAvailable($this->airplane, $this->departTime, $value);
+        if(!$valid) return false;
+
+
+        $valid = self::validateFlightTimes($this->departtime, $this->arriveTime, $this->departAirport, $this->arriveAirport, $this->airplane);
+        return $valid;
+
     }
 
 }

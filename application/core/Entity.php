@@ -55,4 +55,16 @@ class Entity extends CI_Model {
 
         return $this->$key;
     }
+
+
+    public static function decodeUnicode($str)
+    {
+
+        $str = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
+            return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
+        }, $str);
+
+        return $str;
+    }
+
 }
