@@ -172,6 +172,7 @@ class Memory_Model extends CI_Model implements DataMapper
 		if (isset($this->_data[$key]))
 		{
 			unset($this->_data[$key]);
+
 			$this->store();
 		}
 	}

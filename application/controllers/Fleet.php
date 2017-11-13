@@ -89,7 +89,6 @@ class Fleet extends Application
 		$plane = array_merge($plane, $this->input->post());
 		$plane = (object) $plane;  // convert back to object
 		$this->session->set_userdata('plane', (object) $plane);
-		var_dump($plane->id);
 		// validate away
 		if ($this->form_validation->run())
 		{
