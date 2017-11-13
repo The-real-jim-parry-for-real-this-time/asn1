@@ -5,7 +5,7 @@ Jason Sekhon(Pilot), Brayden Traas(Co-pilot), Eric Lin(Cook), Morris Arroyo(Stew
 -------------------------
 * Updated FlightScheduleListTest to cover list of flights
 
-* Minor fixed to test classes
+* Minor fixes to test classes
 
 * Updated AirportTest to cover all the airport model properties
 
