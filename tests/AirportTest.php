@@ -217,14 +217,14 @@ class AirportTest extends PHPUnit_Framework_TestCase
 
     //Longitude greater than 180
     public function testLongitudeMaxInvalid() {
-        $value = 180;
+        $value = 181;
         $this->airport->longitude = $value;
         $this->assertNotEquals($value, $this->airport->longitude);
     }
 
     //Longitude less than -180
     public function testLongitudeMinInvalid() {
-        $value = -180;
+        $value = -181;
         $this->airport->longitude = $value;
         $this->assertNotEquals($value, $this->airport->longitude);
     }

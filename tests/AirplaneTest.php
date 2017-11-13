@@ -158,7 +158,7 @@ class AirplaneTest extends PHPUnit_Framework_TestCase
     public function testPriceMinValid()
     {
         $value = $this->min_valid_int;
-        $this->aiplane->price = $value;
+        $this->airplane->price = $value;
         $this->assertEquals($this->airplane->price, $value);
     }
 
