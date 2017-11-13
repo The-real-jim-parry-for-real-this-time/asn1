@@ -47,8 +47,8 @@ class FlightTest extends PHPUnit_Framework_TestCase
         $this->first_char           = "S";
         $this->max_valid_strlen     = 64;
         $this->min_valid_int        = 0;
-        $this->earliest_departure   = '08:00';
-        $this->latest_arrival       = '22:00';
+        $this->earliest_departure   = strtotime('08:00');
+        $this->latest_arrival       = strtotime('22:00');
         $this->wait_time            = 30;
         $this->buffer_time          = 10;
         $this->airport_code_strlen  = 3;
@@ -67,7 +67,7 @@ class FlightTest extends PHPUnit_Framework_TestCase
         $this->assertGreaterThanOrEqual($this->min_valid_int, $this->flight->id);
     }
 
-    //Invalid tests for airplanes
+    //Invalid tests for Id
 
     //Id equal to less than 0
     public function testIdInvalid() {
@@ -136,20 +136,20 @@ class FlightTest extends PHPUnit_Framework_TestCase
         $this->assertNotEquals($value, $this->flight->code);
     }
 
-    //TESTS FOR AIRPLANES
+    //TESTS FOR AIRPLANE
 
-    //Valid tests for airplanes
+    //Valid tests for airplane
 
-    //Airplanes (ID) equal to 0
+    //Airplane (ID) equal to 0
     public function testAirplaneValid() {
         $value = 0;
         $this->flight->airplane = $value;
         $this->assertGreaterThanOrEqual($this->min_valid_int, $this->flight->airplane);
     }
 
-    //Invalid tests for airplanes
+    //Invalid tests for airplane
 
-    //Airplanes (ID) equal to less than 0
+    //Airplane (ID) equal to less than 0
     public function testAirplaneInvalid() {
         $value = -1;
         $this->flight->airplane = $value;
@@ -161,7 +161,7 @@ class FlightTest extends PHPUnit_Framework_TestCase
     public function testDepartAirportType() {
         $value = "XYZ";
         $this->flight->departAirport = $value;
-        $this->assertInternalType('string', $this->flight->arriveAirport);
+        $this->assertInternalType('string', $this->flight->departAirport);
     }
 
     //Valid tests for departAirport
@@ -173,8 +173,6 @@ class FlightTest extends PHPUnit_Framework_TestCase
         $this->flight->departAirport = $value;
         $this->assertEquals(strlen($this->flight->departAirport), $this->airport_code_strlen);
     }
-
-    //String characters limited to capital letters
 
     //String characters limited to capital letters
     public function testDepartAirportCaseValid()
@@ -208,43 +206,43 @@ class FlightTest extends PHPUnit_Framework_TestCase
     //TESTS FOR DEPARTTIME
 
     public function testDepartTimeType() {
-        $value = '08:00';
+        $value = $this->earliest_departure;
         $this->flight->departTime = $value;
-        $this->assertInternalType('string', $this->flight->departTime);
+        $this->assertInternalType('int', $this->flight->departTime);
     }
 
     //Valid tests for departTime
 
     //String is earliest departure time
     public function testDepartTimeEarliestValid() {
-        $value = '08:00';
+        $value = $this->earliest_departure;
         $this->flight->departTime = $value;
-        $this->assertGreaterThanOrEqual(new DateTime($this->flight->departTime), new DateTime($this->earliest_departure));
+        $this->assertGreaterThanOrEqual($this->flight->departTime, $this->earliest_departure);
     }
 
     //Departure time string is earlier than arrival time
     public function testDepartTimeEarlierThanArriveTimeValid() {
-        $value1 = '22:00';
+        $value1 = strtotime('22:00');
         $this->flight->arriveTime = $value1;
-        $value2 = '21:59';
+        $value2 = strtotime('21:59');
         $this->flight->departTime = $value2;
-        $this->assertLessThan(new DateTime($this->flight->departTime), new DateTime($this->flight->arriveTime));
+        $this->assertLessThan($this->flight->arriveTime, $this->flight->departTime);
     }
 
     //Invalid tests for departTime
 
     //String is earlier than earliest depature time
     public function testDepartTimeEarliestInvalid() {
-        $value = '7:59';
+        $value = strtotime('7:59');
         $this->flight->departTime = $value;
         $this->assertNotEquals($this->flight->departTime, $value);
     }
 
     //Departure string is later than arrival time
     public function testDepartTimeLaterThanArriveTimeInvalid() {
-        $value1 = '21:59';
+        $value1 = strtotime('21:59');
         $this->flight->arriveTime = $value1;
-        $value2 = '22:00';
+        $value2 = strtotime('22:00');
         $this->flight->departTime = $value2;
         $this->assertNotEquals($value2, $this->flight->departTime);
     }
@@ -301,27 +299,27 @@ class FlightTest extends PHPUnit_Framework_TestCase
     //TESTS FOR ARRIVETIME
 
     public function testArriveTimeType() {
-        $value = '22:00';
+        $value = strtotime('22:00');
         $this->flight->arriveTime = $value;
-        $this->assertInternalType('string', $this->flight->arriveTime);
+        $this->assertInternalType('int', $this->flight->arriveTime);
     }
 
     //Valid tests for departTime
 
     //String is earliest departure time
     public function testArriveTimeLastestValid() {
-        $value = '22:00';
+        $value = strtotime('22:00');
         $this->flight->arriveTime = $value;
-        $this->assertLessThanOrEqual(new DateTime($this->latest_arrival), new DateTime($this->flight->departTime));
+        $this->assertLessThanOrEqual($this->latest_arrival, $this->flight->departTime);
     }
 
     //Arrival time string is later than arrival time
     public function testArriveTimeLaterThanDepartTimeValid() {
-        $value1 = '21:59';
+        $value1 = strtotime('21:59');
         $this->flight->departTime = $value1;
-        $value2 = '22:00';
+        $value2 = strtotime('22:00');
         $this->flight->arriveTime = $value2;
-        $this->assertGreaterThan(new DateTime($this->flight->departTime), new DateTime($this->flight->arriveTime));
+        $this->assertGreaterThan($this->flight->departTime, $this->flight->arriveTime);
     }
 
     //Invalid tests for departTime
@@ -335,9 +333,9 @@ class FlightTest extends PHPUnit_Framework_TestCase
 
     //Departure string is later than arrival time
     public function testArriveTimeEarlierThanDepartTimeInvalid() {
-        $value1 = '22:00';
+        $value1 = strtotime('22:00');
         $this->flight->departTime = $value1;
-        $value2 = '21:59';
+        $value2 = strtotime('21:59');
         $this->flight->arriveTime = $value2;
         $this->assertNotEquals($value2, $this->flight->arriveTime, "arriveTime is set with invalid value");
     }
