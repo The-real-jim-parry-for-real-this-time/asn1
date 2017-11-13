@@ -161,6 +161,9 @@ class Flight extends Entity
 //            return;
 //        }
 
+        $num = preg_replace('/[^0-9]/i', '', $value);
+        if($num != $value) return;
+
         if($value != intval($value)) return;
 
         if(date("G",$value) < 8) return; // no departures before 8am
@@ -197,6 +200,9 @@ class Flight extends Entity
      */
     public function setArriveTime($value){
 
+        $num = preg_replace('/[^0-9]/i', '', $value);
+        if($num != $value) return;
+
         if($value != intval($value)) return;
 
         if(date("G",$value) > 21) return; // no departures after 22:00
@@ -218,7 +224,7 @@ class Flight extends Entity
      * @return bool
      */
     public function isValid() {
-        $valid = (new FlightSchedule)->validatePlaneAvailable($this->airplane, $this->departTime, $value);
+        $valid = (new FlightSchedule)->validatePlaneAvailable($this->airplane, $this->departTime, $this->arriveTime);
         if(!$valid) return false;
 
 
