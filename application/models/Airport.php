@@ -8,6 +8,10 @@ require_once APPPATH . 'third_party/Smp_Gps_Coordinates.php';
  */
 class Airport extends Entity
 {
+
+    private static $identifier = "S";
+
+
     protected $id;
     protected $code;
     protected $type;
@@ -29,19 +33,26 @@ class Airport extends Entity
         parent::__construct();
     }
 
+    /**
+     * @param $value Integer
+     */
     public function setId($value) {
 
         // check valid character type
-        $alNum = preg_replace('/[^a-z0-9 ]/i', '', $value);
-        if($value != $alNum) return;
+        $num = preg_replace('/[^0-9]/i', '', $value);
+        if($value != $num) return;
 
         if(strlen($value) > 64) {
             return;
         }
 
+
         $this -> id = $value;
     }
 
+    /**
+     * @param $value String code (eg SXYZ)
+     */
     public function setCode($value){
 
         $alNum = preg_replace('/[^a-z0-9 ]/i', '', $value);
@@ -51,9 +62,15 @@ class Airport extends Entity
             return;
         }
 
+        //if($alNum[0] != self::$identifier) return;
+
+
         $this -> code = $value;
     }
 
+    /**
+     * @param $value integer
+     */
     public function setType($value){
 
         $alNum = preg_replace('/[^0-9]/i', '', $value);
@@ -65,9 +82,12 @@ class Airport extends Entity
     }
 
 
+    /**
+     * @param $value integer
+     */
     public function setName($value){
 
-        $alNum = preg_replace('/[^0-9]/i', '', $value);
+        $alNum = preg_replace('/[^0-9A-Z _\'-]/i', '', $value);
         if($value != $alNum) return;
 
         if($value != intval($value)) return;
