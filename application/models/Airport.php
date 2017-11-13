@@ -1,6 +1,6 @@
 <?php
 require_once APPPATH . 'core/Entity.php';
-require_once APPPATH . 'third_party/GPS'; // this is the model for an airport
+require_once APPPATH . 'third_party/GPS.php'; // this is the model for an airport
 
 /**
  *
@@ -55,10 +55,10 @@ class Airport extends Entity
      */
     public function setCode($value){
 
-        $alNum = preg_replace('/[^a-z0-9 ]/i', '', $value);
+        $alNum = preg_replace('/[^A-Z]/', '', $value);
         if($value != $alNum) return;
 
-        if(strlen($value) > 64) {
+        if(strlen($value) != 3) {
             return;
         }
 
@@ -83,14 +83,17 @@ class Airport extends Entity
 
 
     /**
-     * @param $value integer
+     * @param $value string
      */
     public function setName($value){
 
         $alNum = preg_replace('/[^0-9A-Z _\'-]/i', '', $value);
         if($value != $alNum) return;
 
-        if($value != intval($value)) return;
+        //if($value != intval($value)) return;
+
+        if(strlen($value) > 64) return;
+
 
         $this -> name = $value;
     }
@@ -178,6 +181,9 @@ class Airport extends Entity
 
         if($value != doubleval($value)) return;
 
+        if($value > 90 || $value < -90) return;
+
+
         $this->latitide = $value;
     }
 
@@ -192,6 +198,7 @@ class Airport extends Entity
 
         if($value != doubleval($value)) return;
 
+        if($value > 180 || $value < -180) return;
 
         $this->longitude = $value;
     }
