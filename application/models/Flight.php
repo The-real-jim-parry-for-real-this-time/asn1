@@ -209,7 +209,10 @@ class Flight extends Entity
 
         if($value != intval($value)) return;
 
-        if(date("G",$value) > 21) return; // no departures after 22:00
+
+        $latestTime = strtotime("22:00");
+
+        if($value > $latestTime) return; // no departures after 22:00
 
         if(isset($this->departTime) && isset($this->airplane)) {
             $valid = (new FlightSchedule)->validatePlaneAvailable($this->airplane, $this->departTime, $value);
