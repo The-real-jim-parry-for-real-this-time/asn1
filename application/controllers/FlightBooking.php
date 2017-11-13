@@ -14,7 +14,7 @@ class FlightBooking extends Application{
         if ( ! isset($this->data['error']))
             $this->data['error'] = '';
         
-		foreach ($this->Airport->all() as $airport){
+		foreach ($this->Airports->all() as $airport){
             $airports[] = $airport->name;
         }
         array_unshift($airports, null);

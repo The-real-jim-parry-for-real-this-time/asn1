@@ -140,7 +140,7 @@ class FlightTest extends PHPUnit_Framework_TestCase
 
     //Valid tests for airplane
 
-    //Airplane (ID) equal to 0
+    //Airplane (ID) equal to 0d
     public function testAirplaneValid() {
         $value = 0;
         $this->flight->airplane = $value;
