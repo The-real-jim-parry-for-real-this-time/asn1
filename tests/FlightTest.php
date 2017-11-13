@@ -52,6 +52,9 @@ class FlightTest extends PHPUnit_Framework_TestCase
         $this->wait_time            = 30;
         $this->buffer_time          = 10;
         $this->airport_code_strlen  = 3;
+
+
+
     }
     //TESTS FOR ID
 

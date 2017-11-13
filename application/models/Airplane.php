@@ -7,6 +7,8 @@ require_once APPPATH . 'core/Entity.php';
  */
 class Airplane extends Entity
 {
+    private static $identifier = "S";
+
     protected $id;
     protected $manufacturer;
     protected $model;
@@ -33,19 +35,35 @@ class Airplane extends Entity
         parent::__construct();
     }
 
+    /**
+     * @param $value String Airplane ID
+     */
     public function setId($value) {
 
+
+
+
         // check valid character type
-        $alNum = preg_replace('/[^a-z0-9 ]/i', '', $value);
-        if($value != $alNum) return;
+        $alNum = preg_replace('/[^0-9A-Z]/i', '', $value);
+        //if($value != $alNum) return;
+
+
+        if($alNum[0] != self::$identifier) return;
+
 
         if(strlen($value) > 64) {
             return;
         }
 
-        $this -> id = $value;
+
+        //if($value != intval($value)) return;
+
+        $this -> id = $alNum;
     }
 
+    /**
+     * @param $value String Manufacturer name
+     */
     public function setManufacturer($value){
 
         $alNum = preg_replace('/[^a-z0-9 ]/i', '', $value);
@@ -58,6 +76,9 @@ class Airplane extends Entity
         $this -> manufacturer = $value;
     }
 
+    /**
+     * @param $value Integer Model
+     */
     public function setModel($value){
 
         $alNum = preg_replace('/[^0-9]/i', '', $value);
@@ -68,7 +89,9 @@ class Airplane extends Entity
         $this -> model = $value;
     }
 
-
+    /**
+     * @param $value Integer price (dollar value)
+     */
     public function setPrice($value){
 
         $alNum = preg_replace('/[^0-9]/i', '', $value);
@@ -80,6 +103,9 @@ class Airplane extends Entity
     }
 
 
+    /**
+     * @param $value Integer number of seats
+     */
     public function setSeats($value){
 
         $alNum = preg_replace('/[^0-9]/i', '', $value);
@@ -92,6 +118,9 @@ class Airplane extends Entity
     }
 
 
+    /**
+     * @param $value Integer reach altitude
+     */
     public function setReach($value){
 
         $alNum = preg_replace('/[^0-9]/i', '', $value);
@@ -104,6 +133,9 @@ class Airplane extends Entity
     }
 
 
+    /**
+     * @param $value Integer cruise speed
+     */
     public function setCruise($value){
 
         $alNum = preg_replace('/[^0-9]/i', '', $value);
@@ -114,7 +146,9 @@ class Airplane extends Entity
         $this -> cruise = $value;
     }
 
-
+    /**
+     * @param $value Integer takeoff speed
+     */
     public function setTakeoff($value){
 
 
@@ -127,6 +161,9 @@ class Airplane extends Entity
     }
 
 
+    /**
+     * @param $value Integer hourly rate (dollar value)
+     */
     public function setHourly($value){
 
         $alNum = preg_replace('/[^0-9]/i', '', $value);

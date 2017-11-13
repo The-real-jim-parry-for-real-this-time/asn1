@@ -19,7 +19,7 @@ class Info extends CI_Controller
 	 */
 	public function index()
 	{
-		$record = $this->Airport->all();
+		$record = $this->Airports->all();
         header("Content-type: application/json");
         echo json_encode($record, JSON_PRETTY_PRINT);
 	}
