@@ -136,14 +136,16 @@ class Flight extends Entity
     }
 
     /**
-     * @param $value integer Airport ID
+     * @param $value string Airport code
      */
     public function setDepartAirport($value){
 
-        $alNum = preg_replace('/[^0-9]/i', '', $value);
+        $alNum = preg_replace('/[^0-9A-Z]/', '', $value);
         if($value != $alNum) return;
 
-        if($value != intval($value)) return;
+        //if($value != intval($value)) return;
+
+        if(strlen($alNum) != 3) return;
 
         $this -> departAirport = $value;
     }
@@ -183,14 +185,16 @@ class Flight extends Entity
     }
 
     /**
-     * @param $value Integer airport ID
+     * @param $value string airport code
      */
     public function setArriveAirport($value){
 
-        $alNum = preg_replace('/[^0-9]/i', '', $value);
+        $alNum = preg_replace('/[^0-9A-Z]/', '', $value);
         if($value != $alNum) return;
 
-        if($value != intval($value)) return;
+        //if($value != intval($value)) return;
+
+        if(strlen($alNum) != 3) return;
 
         $this -> arriveAirport = $value;
     }
@@ -216,6 +220,7 @@ class Flight extends Entity
         if(isset($this->departTime)) {
             if($this->departTime >= $value) return;
         }
+
 
         $this -> arriveTime = $value;
     }
