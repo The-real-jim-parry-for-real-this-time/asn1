@@ -1,22 +1,51 @@
 COMP4711 SET 4R
 Group The-real-jim-parry-for-real-this-time 
-Jason Sekhon(Captain), Brayden Traas(Mate), Eric Lin(Mate), Morris Arroyo(Mate)
+Jason Sekhon(Pilot), Brayden Traas(Co-pilot), Eric Lin(Cook), Morris Arroyo(Stewardess)
 
 -------------------------
-* added flights to welcome page.
+* Updated AirportsListTest to Tests each airport against list of airports in the vault
 
-* info controller (accessable through url /info/...) and cleanup
+* Updated FlightScheduleListTest to cover list of flights
 
-* added fleet model, controller and view
+* Minor fixes to test classes
 
-* added flights model, controller and view
+* Updated AirportTest to cover all the airport model properties
 
-* updated welcome page
+* add and edit flights, fleets
 
-* menubar and boostrap integration. Cleaned welcome page
+* Updated FlightTest to cover all the flight model properties
+
+* Updated AirplanesListTest to test airplanes list against available planes
+
+* Updated flight model unit test to cover half of flight model's properties
+
+* Updated airplane model unit test to cover all of airplane model's  properties
+
+* added ./test/tmp/* and ./tmp/ to gitignore
+
+* added phpunit and travis-ci integration
+
+* user roles for owner and guest
+
+* Added session save path to tmp folder 
+
+* Added new models
+
+* Added flights to welcome page.
+
+* Info controller (accessable through url /info/...) and cleanup
+
+* Added fleet model, controller and view
+
+* Added flights model, controller and view
+
+* Updated welcome page
+
+* Menubar and boostrap integration. Cleaned welcome page
 
 * Added Airport and Airport models
 
 * Added changelog 
 
 * Added .idea folder to .gitignore
+

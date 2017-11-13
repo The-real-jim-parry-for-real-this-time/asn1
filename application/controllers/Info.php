@@ -19,22 +19,21 @@ class Info extends CI_Controller
 	 */
 	public function index()
 	{
-		$record = $this->airport;
+		$record = $this->Airports->all();
         header("Content-type: application/json");
         echo json_encode($record, JSON_PRETTY_PRINT);
 	}
 
-	public function fleet() {
+	public function airplanes() {
 
-        $record = $this->airplane;
+        $record = $this->Airplanes->all();
         header("Content-type: application/json");
         echo json_encode($record, JSON_PRETTY_PRINT);
 	}
 	
-	public function flights() {
-		$record = $this->flight;
+	public function flightschedule() {
+		$record = $this->FlightSchedule->all();
 		header("Content-type: application/json");
 		echo json_encode($record, JSON_PRETTY_PRINT);
 	}
-
 }

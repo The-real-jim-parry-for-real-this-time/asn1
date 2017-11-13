@@ -1,0 +1,70 @@
+<?php
+if (! class_exists('PHPUnit_Framework_TestCase')) {
+    class_alias('PHPUnit\Framework\TestCase', 'PHPUnit_Framework_TestCase');
+}
+if (! class_exists('PHPUnit_Framework_ExpectationFailedException')) {
+    class_alias('PHPUnit\Framework\ExpectationFailedException', 'PHPUnit_Framework_ExpectationFailedException');
+}
+/**
+ * This test covers the airplanes collection class
+ * Airplanes.php.
+ *
+ * @property Airplanes $airplanes
+ *
+ * @author Morris Arroyo
+ */
+class AirportsListTest extends PHPUnit_Framework_TestCase
+{
+    private $CI;
+
+    private $airports;
+
+    private $valid_airports;
+
+    //JSON of airports from the vault
+    private $airports_json;
+
+    //Array of airports from the vault
+    private $decoded_airports;
+
+    //Test setup.
+    public function setUp()
+    {
+        $this->CI                       = &get_instance();
+        $this->airports                 = new Airports();
+        $this->airports_json            = '[ { "id": "XQU", "community": "Qualicum Beach", "airport": "Qualicum Beach Airport", "region": "1", "coordinates": "49\u00b020\u203214\u2033N124\u00b023\u203238\u2033W", "runway": "1086", "airline": "" }, { "id": "YAA", "community": "Anahim Lake", "airport": "Anahim Lake Airport", "region": "5", "coordinates": "52\u00b027\u203208\u2033N125\u00b018\u203216\u2033W", "runway": "1200", "airline": "" }, { "id": "YAL", "community": "Alert Bay", "airport": "Alert Bay Airport", "region": "1", "coordinates": "50\u00b034\u203256\u2033N126\u00b054\u203257\u2033W", "runway": "910", "airline": "" }, { "id": "YAZ", "community": "Tofino", "airport": "Tofino\/Long Beach Airport", "region": "1", "coordinates": "49\u00b004\u203256\u2033N125\u00b046\u203221\u2033W", "runway": "1524", "airline": "" }, { "id": "YBD", "community": "Bella Coola", "airport": "Bella Coola Airport", "region": "5", "coordinates": "52\u00b023\u203215\u2033N126\u00b035\u203245\u2033W", "runway": "1280", "airline": "" }, { "id": "YBL", "community": "Campbell River", "airport": "Campbell River Airport", "region": "1", "coordinates": "49\u00b057\u203203\u2033N125\u00b016\u203215\u2033W", "runway": "1981", "airline": "albatros" }, { "id": "YCA", "community": "Courtenay", "airport": "Courtenay Airpark", "region": "1", "coordinates": "49\u00b040\u203246\u2033N124\u00b058\u203254\u2033W", "runway": "549", "airline": "" }, { "id": "YCD", "community": "Nanaimo", "airport": "Nanaimo Airport", "region": "1", "coordinates": "49\u00b003\u203208\u2033N123\u00b052\u203213\u2033W", "runway": "2012", "airline": "bluebird" }, { "id": "YCG", "community": "Castlegar", "airport": "Castlegar Airport", "region": "4", "coordinates": "49\u00b017\u203247\u2033N117\u00b037\u203257\u2033W", "runway": "1615", "airline": "cuckoo" }, { "id": "YCP", "community": "Blue River", "airport": "Blue River Airport", "region": "3", "coordinates": "52\u00b007\u203227\u2033N119\u00b017\u203233\u2033W", "runway": "1544", "airline": "" }, { "id": "YCQ", "community": "Chetwynd", "airport": "Chetwynd Airport", "region": "9", "coordinates": "55\u00b041\u203214\u2033N121\u00b037\u203236\u2033W", "runway": "1366", "airline": "" }, { "id": "YCW", "community": "Chilliwack", "airport": "Chilliwack Airport", "region": "2", "coordinates": "49\u00b009\u203210\u2033N121\u00b056\u203220\u2033W", "runway": "1215", "airline": "dove" }, { "id": "YCZ", "community": "Fairmont Hot Springs", "airport": "Fairmont Hot Springs Airport", "region": "4", "coordinates": "50\u00b019\u203249\u2033N115\u00b052\u203224\u2033W", "runway": "1830", "airline": "" }, { "id": "YDL", "community": "Dease Lake", "airport": "Dease Lake Airport", "region": "6", "coordinates": "58\u00b025\u203220\u2033N130\u00b001\u203256\u2033W", "runway": "1830", "airline": "" }, { "id": "YDQ", "community": "Dawson Creek", "airport": "Dawson Creek Airport", "region": "9", "coordinates": "55\u00b044\u203232\u2033N120\u00b010\u203259\u2033W", "runway": "1524", "airline": "eagle" }, { "id": "YDT", "community": "Delta", "airport": "Boundary Bay Airport (Vancouver\/Boundary Bay Airport)", "region": "2", "coordinates": "49\u00b004\u203226\u2033N123\u00b000\u203227\u2033W", "runway": "1709", "airline": "falcon" }, { "id": "YGB", "community": "Texada", "airport": "Texada\/Gillies Bay Airport", "region": "2", "coordinates": "49\u00b041\u203239\u2033N124\u00b031\u203204\u2033W", "runway": "914", "airline": "" }, { "id": "YGE", "community": "Golden", "airport": "Golden Airport", "region": "4", "coordinates": "51\u00b017\u203257\u2033N116\u00b058\u203257\u2033W", "runway": "1380", "airline": "goose" }, { "id": "YHE", "community": "Hope", "airport": "Hope Aerodrome", "region": "2", "coordinates": "49\u00b022\u203206\u2033N121\u00b029\u203253\u2033W", "runway": "1207", "airline": "" }, { "id": "YJM", "community": "Fort St. James", "airport": "Fort St. James (Perison) Airport", "region": "9", "coordinates": "54\u00b023\u203250\u2033N124\u00b015\u203246\u2033W", "runway": "1219", "airline": "" }, { "id": "YKA", "community": "Kamloops", "airport": "Kamloops Airport", "region": "3", "coordinates": "50\u00b042\u203209\u2033N120\u00b026\u203255\u2033W", "runway": "2438", "airline": "heron" }, { "id": "YLW", "community": "Kelowna", "airport": "Kelowna International Airport", "region": "8", "coordinates": "49\u00b057\u203226\u2033N119\u00b022\u203240\u2033W", "runway": "2713", "airline": "ibis" }, { "id": "YMB", "community": "Merritt", "airport": "Merritt Airport (Saunders Field)", "region": "3", "coordinates": "50\u00b007\u203222\u2033N120\u00b044\u203242\u2033W", "runway": "1220", "airline": "" }, { "id": "YMP", "community": "Port McNeill", "airport": "Port McNeill Airport", "region": "1", "coordinates": "50\u00b034\u203232\u2033N127\u00b001\u203243\u2033W", "runway": "732", "airline": "" }, { "id": "YNH", "community": "Hudson\'s Hope", "airport": "Hudson\'s Hope Airport", "region": "9", "coordinates": "56\u00b002\u203208\u2033N121\u00b058\u203233\u2033W", "runway": "1585", "airline": "" }, { "id": "YNJ", "community": "Langley", "airport": "Langley Regional Airport", "region": "2", "coordinates": "49\u00b006\u203204\u2033N122\u00b037\u203250\u2033W", "runway": "836", "airline": "" }, { "id": "YPB", "community": "Port Alberni", "airport": "Port Alberni (Alberni Valley Regional) Airport", "region": "1", "coordinates": "49\u00b019\u203219\u2033N124\u00b055\u203252\u2033W", "runway": "1205", "airline": "" }, { "id": "YPK", "community": "Pitt Meadows", "airport": "Pitt Meadows Airport", "region": "2", "coordinates": "49\u00b012\u203258\u2033N122\u00b042\u203236\u2033W", "runway": "1524", "airline": "junco" }, { "id": "YPR", "community": "Prince Rupert", "airport": "Prince Rupert Airport", "region": "6", "coordinates": "54\u00b017\u203210\u2033N130\u00b026\u203241\u2033W", "runway": "1829", "airline": "kite" }, { "id": "YPU", "community": "Puntzi Mountain", "airport": "Puntzi Mountain Airport", "region": "5", "coordinates": "52\u00b006\u203246\u2033N124\u00b008\u203241\u2033W", "runway": "1832", "airline": "" }, { "id": "YPW", "community": "Powell River", "airport": "Powell River Airport", "region": "2", "coordinates": "49\u00b050\u203203\u2033N124\u00b030\u203201\u2033W", "runway": "1104", "airline": "loon" }, { "id": "YPZ", "community": "Burns Lake", "airport": "Burns Lake Airport", "region": "6", "coordinates": "54\u00b022\u203235\u2033N125\u00b057\u203205\u2033W", "runway": "1542", "airline": "" }, { "id": "YQQ", "community": "Comox", "airport": "CFB Comox (Comox Airport)", "region": "1", "coordinates": "49\u00b042\u203239\u2033N124\u00b053\u203212\u2033W", "runway": "3048", "airline": "" }, { "id": "YQZ", "community": "Quesnel", "airport": "Quesnel Airport", "region": "5", "coordinates": "53\u00b001\u203234\u2033N122\u00b030\u203237\u2033W", "runway": "1677", "airline": "magpie" }, { "id": "YRV", "community": "Revelstoke", "airport": "Revelstoke Airport", "region": "3", "coordinates": "50\u00b057\u203244\u2033N118\u00b011\u203204\u2033W", "runway": "1571", "airline": "nuthatch" }, { "id": "YSE", "community": "Squamish", "airport": "Squamish Airport", "region": "2", "coordinates": "49\u00b046\u203254\u2033N123\u00b009\u203243\u2033W", "runway": "732", "airline": "" }, { "id": "YSN", "community": "Salmon Arm", "airport": "Salmon Arm Airport", "region": "3", "coordinates": "50\u00b040\u203258\u2033N119\u00b013\u203243\u2033W", "runway": "1299", "airline": "owl" }, { "id": "YVE", "community": "Vernon", "airport": "Vernon Regional Airport", "region": "8", "coordinates": "50\u00b014\u203246\u2033N119\u00b019\u203251\u2033W", "runway": "1072", "airline": "" }, { "id": "YVR", "community": "Vancouver", "airport": "Vancouver International Airport", "region": "2", "coordinates": "49\u00b011\u203241\u2033N123\u00b011\u203202\u2033W", "runway": "3505", "airline": "pelican" }, { "id": "YWL", "community": "Williams Lake", "airport": "Williams Lake Airport", "region": "5", "coordinates": "52\u00b011\u203200\u2033N122\u00b003\u203216\u2033W", "runway": "2134", "airline": "" }, { "id": "YXC", "community": "Cranbrook", "airport": "Cranbrook\/Canadian Rockies International Airport", "region": "4", "coordinates": "49\u00b036\u203244\u2033N115\u00b046\u203255\u2033W", "runway": "2438", "airline": "quail" }, { "id": "YXJ", "community": "Fort St. John", "airport": "Fort St. John Airport (North Peace Airport)", "region": "9", "coordinates": "56\u00b014\u203217\u2033N120\u00b044\u203225\u2033W", "runway": "2106", "airline": "" }, { "id": "YXS", "community": "Prince George", "airport": "Prince George Airport", "region": "7", "coordinates": "53\u00b053\u203203\u2033N122\u00b040\u203239\u2033W", "runway": "3490", "airline": "raven" }, { "id": "YXT", "community": "Terrace\/Kitimat", "airport": "Northwest Regional Airport Terrace-Kitimat (Terrace Airport)", "region": "6", "coordinates": "54\u00b028\u203207\u2033N128\u00b034\u203242\u2033W", "runway": "2285", "airline": "swallow" }, { "id": "YXX", "community": "Abbotsford", "airport": "Abbotsford International Airport", "region": "2", "coordinates": "49\u00b001\u203231\u2033N122\u00b021\u203238\u2033W", "runway": "2925", "airline": "thrush" }, { "id": "YYD", "community": "Smithers", "airport": "Smithers Airport", "region": "6", "coordinates": "54\u00b049\u203231\u2033N127\u00b010\u203258\u2033W", "runway": "2299", "airline": "unlikely" }, { "id": "YYE", "community": "Fort Nelson", "airport": "Fort Nelson Airport", "region": "9", "coordinates": "58\u00b050\u203211\u2033N122\u00b035\u203249\u2033W", "runway": "1951", "airline": "vulture" }, { "id": "YYF", "community": "Penticton", "airport": "Penticton Regional Airport", "region": "8", "coordinates": "49\u00b027\u203245\u2033N119\u00b036\u203208\u2033W", "runway": "1829", "airline": "warbler" }, { "id": "YYJ", "community": "Victoria", "airport": "Victoria International Airport", "region": "1", "coordinates": "48\u00b038\u203249\u2033N123\u00b025\u203233\u2033W", "runway": "2133", "airline": "xwing" }, { "id": "YZP", "community": "Sandspit", "airport": "Sandspit Airport", "region": "6", "coordinates": "53\u00b015\u203215\u2033N131\u00b048\u203250\u2033W", "runway": "1558", "airline": "" }, { "id": "YZT", "community": "Port Hardy", "airport": "Port Hardy Airport", "region": "1", "coordinates": "50\u00b040\u203250\u2033N127\u00b022\u203200\u2033W", "runway": "1524", "airline": "" }, { "id": "YZY", "community": "Mackenzie", "airport": "Mackenzie Airport", "region": "7", "coordinates": "55\u00b017\u203258\u2033N123\u00b008\u203200\u2033W", "runway": "1534", "airline": "yellowhammer" }, { "id": "ZEL", "community": "Bella Bella", "airport": "Denny Island Aerodrome", "region": "5", "coordinates": "52\u00b008\u203223\u2033N128\u00b003\u203249\u2033W", "runway": "900", "airline": "" }, { "id": "ZGF", "community": "Grand Forks", "airport": "Grand Forks Airport", "region": "8", "coordinates": "49\u00b000\u203256\u2033N118\u00b025\u203250\u2033W", "runway": "1314", "airline": "" }, { "id": "ZMH", "community": "108 Mile Ranch", "airport": "South Cariboo Regional Airport (108 Mile Ranch Airport)", "region": "3", "coordinates": "51\u00b044\u203210\u2033N121\u00b019\u203258\u2033W", "runway": "1613", "airline": "zipper" }, { "id": "ZMT", "community": "Masset", "airport": "Masset Airport", "region": "6", "coordinates": "54\u00b001\u203238\u2033N132\u00b007\u203230\u2033W", "runway": "1501", "airline": "" }, { "id": "ZST", "community": "Stewart", "airport": "Stewart Aerodrome", "region": "6", "coordinates": "55\u00b056\u203200\u2033N129\u00b059\u203200\u2033W", "runway": "1189", "airline": "" } ]';
+        $this->decoded_airports         = json_decode($this->airports_json);
+        $this->valid_airports           = [];
+        foreach ($this->decoded_airports as $airport) {
+            $this->valid_airports[$airport->id] = $airport;
+        }
+    }
+
+    //Tests each airport against list of airports in the vault
+    public function testAirports() {
+        $failures = [];
+        //var_dump($this->airports->all());
+        //var_dump($this->valid_airports);
+        foreach($this->airports->all() as $airport) {
+            try {
+                $this->assertArrayHasKey($airport->code, $this->valid_airports
+                    , "Valid airports array doesn't contain airport with id " . $airport->code );
+            } catch (PHPUnit_Framework_ExpectationFailedException $e) {
+                $failures[] = $e->getMessage();
+            }
+            if(array_key_exists($airport->code, $this->valid_airports)) {
+                try {
+                    $this->assertEquals($airport->name, $this->valid_airports[$airport->code]->airport
+                        , "Valid airport id " . $airport->id . " doesn't have a corresponding name " . $airport->name);
+                } catch (PHPUnit_Framework_ExpectationFailedException $e) {
+                    $failures[] = $e->getMessage();
+                }
+            }
+        }
+        if(!empty($failures)) {
+            throw new PHPUnit_Framework_ExpectationFailedException (
+                count($failures) . " assertions failed:\n\t" . implode("\n\t", $failures)
+            );
+        }
+    }
+}

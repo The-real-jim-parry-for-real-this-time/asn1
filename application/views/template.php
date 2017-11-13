@@ -12,20 +12,20 @@
 	<body>
 		<div id="container">
 
-			<nav class="navbar navbar-default">
+			<nav class="navbar navbar-default" style="background: #E1F5FE">
 				<div class="navbar-inner">
 					<a class="brand" href="/"><img src="/assets/images/logo.png"/></a>
 					{menubar}
 				</div>
 			</nav>
 
-			<div id="content">
+			<div id="content" style="margin: 50px;">
 				<h1>{pagetitle}</h1>
 				{content}
 			</div>
 
-			<div id="footer" class="span12">
-			<p class="footer">The Real Jim Perry For Real This Time &reg;</p>
+			<div id="footer" class="span12" style="background: #E1F5FE">
+			<p class="footer">The Real Jim Parry For Real This Time &reg;</p>
 			</div>
 			
 		</div>

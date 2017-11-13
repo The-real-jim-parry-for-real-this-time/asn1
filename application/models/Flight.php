@@ -1,60 +1,248 @@
 <?php
 
 /**
- * This is model for flights, but with hard-code data.
+ * This is the model for a flight
  *
  * @author Brayden Traas
  */
-
-define("IDENTIFIER_CHAR", "S");
-
-class Flight extends CI_Model
+class Flight extends Entity
 {
 
-    // Need team identifier, depart airport & time, arrival airport & time
+    private static $identifier = "S";
 
-    var $i = 0;
-    var $data = [
-          0 => array('code' => IDENTIFIER_CHAR . "001", 'airplane' => 0, 'depart_airport' => 0, 'depart_time' => '12:25', 'arrive_airport' => 1, 'arrive_time' => '23:15' )
-         ,1 => array('code' => IDENTIFIER_CHAR . "002", 'airplane' => 1, 'depart_airport' => 3, 'depart_time' => '04:04', 'arrive_airport' => 2, 'arrive_time' => '08:55' )
-         ,2 => array('code' => IDENTIFIER_CHAR . "003", 'airplane' => 2, 'depart_airport' => 2, 'depart_time' => '09:56', 'arrive_airport' => 0, 'arrive_time' => '14:11' )
-         ,3 => array('code' => IDENTIFIER_CHAR . "004", 'airplane' => 3, 'depart_airport' => 0, 'depart_time' => '01:15', 'arrive_airport' => 3, 'arrive_time' => '06:41' )
-         ,4 => array('code' => IDENTIFIER_CHAR . "005", 'airplane' => 4, 'depart_airport' => 1, 'depart_time' => '04:34', 'arrive_airport' => 3, 'arrive_time' => '07:45' )
-         ,5 => array('code' => IDENTIFIER_CHAR . "006", 'airplane' => 5, 'depart_airport' => 0, 'depart_time' => '07:26', 'arrive_airport' => 2, 'arrive_time' => '13:19' )
-         ,6 => array('code' => IDENTIFIER_CHAR . "007", 'airplane' => 6, 'depart_airport' => 1, 'depart_time' => '03:45', 'arrive_airport' => 3, 'arrive_time' => '04:31' )
-//            'base' => array()
-    ];
+
+    protected $id;
+    protected $code;
+    protected $airplane;
+    protected $departAirport;
+    protected $departTime;
+    protected $arriveAirport;
+    protected $arriveTime;
+
+    /*
+     * ['field' => 'id', 'label' => 'Plane', 'rules' => 'alpha_numeric_spaces|max_length[64]'],
+            ['field' => 'code', 'label' => 'Manufacturer', 'rules' => 'alpha_numeric_spaces|max_length[64]'],
+            ['field' => 'airplanes', 'label' => 'Model', 'rules' => 'integer'],
+            ['field' => 'depart_airport', 'label' => 'Price', 'rules' => 'integer'],
+            ['field' => 'depart_time', 'label' => 'Seats', 'rules' => 'alpha_numeric_spaces|max_length[64]'],
+            ['field' => 'arrive_airport', 'label' => 'Reach', 'rules' => 'integer'],
+            ['field' => 'arrive_time', 'label' => 'Cruise', 'rules' => 'alpha_numeric_spaces|max_length[64]']
+     */
+
+
+    /*
+     * There are some restrictions on your schedule:
+	• no departures before 08:00
+	• no landings after 22:00
+	• minimum 30 minutes between a plane's landing and any subsequent departure
+	• all of your fleet must be back at your airline base by the end of the day
+	• flight times need to be reasonable, based on distance between airports, airplane cruising speed,
+            and a 10 minute buffer added to each flight in order to reach cruising/landing speed and altitude
+     */
 
     // Constructor
     public function __construct()
     {
         parent::__construct();
+    }
 
-        require_once 'Airport.php';
-        require_once 'Airplane.php';
+    /**
+     * @param $departure integer timestamp
+     * @param $arrival integer timestamp
+     * @param $departAirport string airport code
+     * @param $arriveAirport string airport code
+     * @param $plane integer id
+     * @return bool on valid
+     */
+    protected static function validateFlightTimes($departure, $arrival, $departAirport, $arriveAirport, $plane) {
 
-        foreach ($this->data as $key => $record)
-        {
-            $record['key'] = $key;
-            $this->data[$key] = $record;
-            $this->data[$key]['airplane'] = [(new Airplane)->get($record['airplane'])];
-            $this->data[$key]['depart_airport'] = [(new Airport)->get($record['depart_airport'])];
-            $this->data[$key]['arrive_airport'] = [(new Airport)->get($record['arrive_airport'])];
+        //$dummy_distance = 1000;
+
+
+        $distanceKm = (new Airports)->kilometersBetweenAirports($departAirport, $arriveAirport);
+        if($distanceKm == 0) return false;
+
+
+        $plane = (new AirPlanes)->get($plane);
+
+        // time = distance / speed
+
+        $cruiseKmPh = $plane->cruise;
+
+        $cruiseKmPm = ($cruiseKmPh / 60);
+
+        $expectedMinutes = ($distanceKm / $cruiseKmPm) + 10;
+
+        $scheduledMinutes = round(abs($arrival - $departure) / 60,2);
+
+        if($scheduledMinutes < $expectedMinutes) return false;
+
+        else return true;
+
+
+    }
+
+
+    /**
+     * @param $value Integer
+     */
+    public function setId($value) {
+
+
+        // check valid character type
+        $alNum = preg_replace('/[^0-9]/i', '', $value);
+        if($value != $alNum) return;
+
+        if($alNum[0] != self::$identifier) return;
+
+
+
+        if($value != intval($value)) return;
+
+        $this->id = $value;
+    }
+
+    /**
+     * @param $value String (Airport code eg. YVR)
+     */
+    public function setCode($value){
+
+        // check valid character type
+        $alNum = preg_replace('/[^a-z0-9 ]/i', '', $value);
+        if($value != $alNum) return;
+
+        if($alNum[0] != self::$identifier) return;
+
+
+        if(strlen($value) > 64) {
+            return;
         }
+
+        $this -> code = $value;
     }
 
+    /**
+     * @param $value integer Airplane ID
+     */
+    public function setAirplane($value){
+        $alNum = preg_replace('/[^0-9]/i', '', $value);
+        if($value != $alNum) return;
+
+        if($value != intval($value)) return;
 
 
+        if(isset($this->departTime) && isset($this->arriveTime)) {
+            $valid = (new FlightSchedule)->validatePlaneAvailable($value, $this->departTime, $this->arriveTime);
+            if(!$valid) return;
+        }
 
-    // Retrieve a single flight, null if not found
-    public function get($which)
-    {
-        return !isset($this->data[$which]) ? null : $this->data[$which];
+
+        $this -> airplane = $value;
     }
 
-    //Retrieve all of the flights
-    public function all()
-    {
-        return $this->data;
+    /**
+     * @param $value string Airport code
+     */
+    public function setDepartAirport($value){
+
+        $alNum = preg_replace('/[^0-9A-Z]/', '', $value);
+        if($value != $alNum) return;
+
+        //if($value != intval($value)) return;
+
+        if(strlen($alNum) != 3) return;
+
+        $this -> departAirport = $value;
     }
+
+    /**
+     * @param $value Integer Depart timestamp
+     */
+    public function setDepartTime($value){
+
+        // check valid character type
+//        $alNum = preg_replace('/[^a-z0-9 ]/i', '', $value);
+//        if($value != $alNum) return;
+//
+//        if(strlen($value) > 64) {
+//            return;
+//        }
+
+        $num = preg_replace('/[^0-9]/i', '', $value);
+        if($num != $value) return;
+
+        if($value != intval($value)) return;
+
+        if(date("G",$value) < 8) return; // no departures before 8am
+
+
+        if(isset($this->arriveTime) && isset($this->airplane)) {
+            $valid = (new FlightSchedule)->validatePlaneAvailable($this->airplane, $value, $this->arriveTime);
+            if(!$valid) return;
+        }
+
+        if(isset($this->arriveTime)) {
+            if($this->arriveTime <= $value) return;
+        }
+
+
+        $this -> departTime = $value;
+    }
+
+    /**
+     * @param $value string airport code
+     */
+    public function setArriveAirport($value){
+
+        $alNum = preg_replace('/[^0-9A-Z]/', '', $value);
+        if($value != $alNum) return;
+
+        //if($value != intval($value)) return;
+
+        if(strlen($alNum) != 3) return;
+
+        $this -> arriveAirport = $value;
+    }
+
+    /**
+     * @param $value Integer arrive timestamp
+     */
+    public function setArriveTime($value){
+
+        $num = preg_replace('/[^0-9]/i', '', $value);
+        if($num != $value) return;
+
+        if($value != intval($value)) return;
+
+
+        $latestTime = strtotime("22:00");
+
+        if($value > $latestTime) return; // no departures after 22:00
+
+        if(isset($this->departTime) && isset($this->airplane)) {
+            $valid = (new FlightSchedule)->validatePlaneAvailable($this->airplane, $this->departTime, $value);
+            if(!$valid) return;
+
+        }
+
+        if(isset($this->departTime)) {
+            if($this->departTime >= $value) return;
+        }
+
+        $this -> arriveTime = $value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isValid() {
+        $valid = (new FlightSchedule)->validatePlaneAvailable($this->airplane, $this->departTime, $this->arriveTime);
+        if(!$valid) return false;
+
+
+        $valid = self::validateFlightTimes($this->departtime, $this->arriveTime, $this->departAirport, $this->arriveAirport, $this->airplane);
+        return $valid;
+
+    }
+
 }
