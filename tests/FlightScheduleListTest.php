@@ -54,7 +54,7 @@ class FlightScheduleListTest extends PHPUnit_Framework_TestCase
         }
         foreach($first_flight as $airplane => $flight) {
             try {
-                $this->assertEquals($flight->depart_airport[0]->id, $this->base
+                $this->assertEquals($flight->depart_airport[0]->code, $this->base
                     , "First flight of airplane id". $airplane . " is not from base " . $this->base);
             } catch (PHPUnit_Framework_ExpectationFailedException $e){
                 $failures[] = $e->getMessage();
@@ -91,7 +91,7 @@ class FlightScheduleListTest extends PHPUnit_Framework_TestCase
         }
         foreach($first_flight as $airplane => $flight) {
             try {
-                $this->assertEquals($flight->arrive_airport[0]->id, $this->base
+                $this->assertEquals($flight->arrive_airport[0]->code, $this->base
                     , "Last flight of airplane id". $airplane . " is not to base " . $this->base);
             } catch (PHPUnit_Framework_ExpectationFailedException $e){
                 $failures[] = $e->getMessage();
