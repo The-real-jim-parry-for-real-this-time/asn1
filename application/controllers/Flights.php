@@ -26,8 +26,8 @@ class Flights extends Application
 	{
 		$flight = $this->FlightSchedule->create();
 		$flight->airplanes = [$this->Airplanes->get(0)];
-		$flight->depart_airport = [$this->Airport->get(0)];
-		$flight->arrive_airport = [$this->Airport->get(0)];
+		$flight->depart_airport = [$this->Airports->get(0)];
+		$flight->arrive_airport = [$this->Airports->get(0)];
 		$this->session->set_userdata('flight', $flight);
 		$this->showit();
 	}
@@ -50,13 +50,13 @@ class Flights extends Application
 		foreach($this->Airplanes->all() as $airplane){
 			$airplanes[] = $airplane->manufacturer . " " . $airplane->model;
 		}
-		foreach($this->Airport->all() as $airport){
+		foreach($this->Airports->all() as $airport){
 			$airports[] = $airport->name;
 		}
         // if no errors, pass an empty message
         if ( ! isset($this->data['error']))
 			$this->data['error'] = '';
-			
+
 		if (is_object($flight->airplanes[0])){
 			$fields = array(
 				'fairplanes'  	  => form_label('airplanes') 		 . form_dropdown('airplanes', $airplanes, $flight->airplanes[0]->id),
