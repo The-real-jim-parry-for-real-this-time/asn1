@@ -3,7 +3,9 @@
  * Menu navbar, just an unordered list
  */
 ?>
-<ul class="nav navbar-nav">
+<ul class="nav navbar-nav" >
+    <li><a href="/" style="padding-top: 10px; padding-bottom: 5px; padding-left: 25px;"><img src="/assets/plane.png" style="height: 32px; margin: 0px;" /></a>
+    </li>
     {menudata}
     <li><a href="{link}">{name}</a></li>
     {/menudata}
