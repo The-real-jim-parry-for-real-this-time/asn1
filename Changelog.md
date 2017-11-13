@@ -3,6 +3,8 @@ Group The-real-jim-parry-for-real-this-time
 Jason Sekhon(Pilot), Brayden Traas(Co-pilot), Eric Lin(Cook), Morris Arroyo(Stewardess)
 
 -------------------------
+* Updated AirportsListTest to Tests each airport against list of airports in the vault
+
 * Updated FlightScheduleListTest to cover list of flights
 
 * Minor fixes to test classes
