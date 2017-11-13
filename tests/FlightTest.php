@@ -141,19 +141,19 @@ class FlightTest extends PHPUnit_Framework_TestCase
     //Valid tests for airplanes
 
     //Airplanes (ID) equal to 0
-    public function testAirplanesValid() {
+    public function testAirplaneValid() {
         $value = 0;
-        $this->flight->airplanes = $value;
-        $this->assertGreaterThanOrEqual($this->min_valid_int, $this->flight->airplanes);
+        $this->flight->airplane = $value;
+        $this->assertGreaterThanOrEqual($this->min_valid_int, $this->flight->airplane);
     }
 
     //Invalid tests for airplanes
 
     //Airplanes (ID) equal to less than 0
-    public function testAirplanesInvalid() {
+    public function testAirplaneInvalid() {
         $value = -1;
-        $this->flight->airplanes = $value;
-        $this->assertNotEquals($value, $this->flight->airplanes);
+        $this->flight->airplane = $value;
+        $this->assertNotEquals($value, $this->flight->airplane);
     }
 
     //TESTS FOR DEPARTAIRPORT
