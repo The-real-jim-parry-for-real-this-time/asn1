@@ -171,6 +171,11 @@ class Flight extends Entity
             if(!$valid) return;
         }
 
+        if(isset($this->arriveTime)) {
+            if($this->arriveTime <= $value) return;
+        }
+
+
         $this -> departTime = $value;
     }
 
@@ -200,6 +205,10 @@ class Flight extends Entity
             $valid = (new FlightSchedule)->validatePlaneAvailable($this->airplane, $this->departTime, $value);
             if(!$valid) return;
 
+        }
+
+        if(isset($this->departTime)) {
+            if($this->departTime >= $value) return;
         }
 
         $this -> arriveTime = $value;
