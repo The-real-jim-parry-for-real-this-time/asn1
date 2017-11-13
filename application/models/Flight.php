@@ -221,7 +221,6 @@ class Flight extends Entity
             if($this->departTime >= $value) return;
         }
 
-
         $this -> arriveTime = $value;
     }
 

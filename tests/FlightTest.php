@@ -67,7 +67,7 @@ class FlightTest extends PHPUnit_Framework_TestCase
         $this->assertGreaterThanOrEqual($this->min_valid_int, $this->flight->id);
     }
 
-    //Invalid tests for airplanes
+    //Invalid tests for Id
 
     //Id equal to less than 0
     public function testIdInvalid() {
@@ -140,7 +140,7 @@ class FlightTest extends PHPUnit_Framework_TestCase
 
     //Valid tests for airplane
 
-    //Airplane (ID) equal to 0d
+    //Airplane (ID) equal to 0
     public function testAirplaneValid() {
         $value = 0;
         $this->flight->airplane = $value;
@@ -161,7 +161,7 @@ class FlightTest extends PHPUnit_Framework_TestCase
     public function testDepartAirportType() {
         $value = "XYZ";
         $this->flight->departAirport = $value;
-        $this->assertInternalType('string', $this->flight->arriveAirport);
+        $this->assertInternalType('string', $this->flight->departAirport);
     }
 
     //Valid tests for departAirport
@@ -173,8 +173,6 @@ class FlightTest extends PHPUnit_Framework_TestCase
         $this->flight->departAirport = $value;
         $this->assertEquals(strlen($this->flight->departAirport), $this->airport_code_strlen);
     }
-
-    //String characters limited to capital letters
 
     //String characters limited to capital letters
     public function testDepartAirportCaseValid()
@@ -228,7 +226,7 @@ class FlightTest extends PHPUnit_Framework_TestCase
         $this->flight->arriveTime = $value1;
         $value2 = strtotime('21:59');
         $this->flight->departTime = $value2;
-        $this->assertLessThan($this->flight->departTime, $this->flight->arriveTime);
+        $this->assertLessThan($this->flight->arriveTime, $this->flight->departTime);
     }
 
     //Invalid tests for departTime
