@@ -9,7 +9,7 @@ require_once APPPATH . 'third_party/Smp_Gps_Coordinates.php';
 class Airport extends Entity
 {
 
-    private static $identifier = "S";
+    //private static $identifier = "S";
 
 
     protected $id;
@@ -51,7 +51,7 @@ class Airport extends Entity
     }
 
     /**
-     * @param $value String code (eg SXYZ)
+     * @param $value String code (eg XYZ)
      */
     public function setCode($value){
 
