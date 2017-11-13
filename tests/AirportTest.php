@@ -64,7 +64,7 @@ class AirportTest extends PHPUnit_Framework_TestCase
     public function testCodeType() {
         $value = "XYZ";
         $this->airport->code = $value;
-        $this->assertInternalType('string', $this->airport->arriveAirport);
+        $this->assertInternalType('string', $this->airport->code);
     }
 
     //Valid tests for code
@@ -217,14 +217,14 @@ class AirportTest extends PHPUnit_Framework_TestCase
 
     //Longitude greater than 180
     public function testLongitudeMaxInvalid() {
-        $value = 91;
+        $value = 180;
         $this->airport->longitude = $value;
         $this->assertNotEquals($value, $this->airport->longitude);
     }
 
     //Longitude less than -180
     public function testLongitudeMinInvalid() {
-        $value = -91;
+        $value = -180;
         $this->airport->longitude = $value;
         $this->assertNotEquals($value, $this->airport->longitude);
     }
