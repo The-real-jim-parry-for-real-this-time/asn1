@@ -4,7 +4,3 @@ id,manufacturer,model,price,seats,reach,cruise,takeoff,hourly
 2,"Beechcraft","Baron",1350,4,1948,373,701,340,
 3,"Beechcraft","Baron",1350,4,1948,373,701,340,
 4,"Beechcraft","Baron",1350,4,1948,373,701,340,
-5,"Airbus","Duke",1350,100,11948,373,701,8340,
-6,"Cessna",400,1350,4,1948,373,701,340,
-7,"Beechcraft","Baron",1350,4,1948,373,701,340,
-8,"KnAAPO","Su-37",51435358,1,59000,4013,1,59000,4013,35000,485000
