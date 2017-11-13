@@ -7,6 +7,10 @@
  */
 class Flight extends Entity
 {
+
+    private static $identifier = "S";
+
+
     protected $id;
     protected $code;
     protected $airplane;
@@ -84,6 +88,10 @@ class Flight extends Entity
         $alNum = preg_replace('/[^0-9]/i', '', $value);
         if($value != $alNum) return;
 
+        if($alNum[0] != self::$identifier) return;
+
+
+
         if($value != intval($value)) return;
 
         $this->id = $value;
@@ -97,6 +105,9 @@ class Flight extends Entity
         // check valid character type
         $alNum = preg_replace('/[^a-z0-9 ]/i', '', $value);
         if($value != $alNum) return;
+
+        if($alNum[0] != self::$identifier) return;
+
 
         if(strlen($value) > 64) {
             return;

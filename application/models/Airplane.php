@@ -7,6 +7,8 @@ require_once APPPATH . 'core/Entity.php';
  */
 class Airplane extends Entity
 {
+    private static $identifier = "S";
+
     protected $id;
     protected $manufacturer;
     protected $model;
@@ -34,17 +36,29 @@ class Airplane extends Entity
     }
 
     /**
-     * @param $value Integer Airplane ID
+     * @param $value String Airplane ID
      */
     public function setId($value) {
 
+
+
+
         // check valid character type
-        $num = preg_replace('/[^0-9]/i', '', $value);
-        if($value != $num) return;
+        $alNum = preg_replace('/[^0-9A-Z]/i', '', $value);
+        //if($value != $alNum) return;
 
-        if($value != intval($value)) return;
 
-        $this -> id = $value;
+        if($alNum[0] != self::$identifier) return;
+
+
+        if(strlen($value) > 64) {
+            return;
+        }
+
+
+        //if($value != intval($value)) return;
+
+        $this -> id = $alNum;
     }
 
     /**
