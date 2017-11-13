@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Smp_Gps_Coordinates enables developers to convert between different coordinate systems
+ * GPS enables developers to convert between different coordinate systems
  *
  * @category  Smp
- * @package   Smp_Gps_Coordinates
+ * @package   GPS
  * @license   https://github.com/nexces/Smp/blob/master/LICENSE.txt    BSD License
  * @author    Adrian 'Nexces' Piotrowicz / adrianp
  */
-class Smp_Gps_Coordinates {
+class GPS {
 
     /**
      * Decimal format of coordinate
@@ -120,9 +120,12 @@ class Smp_Gps_Coordinates {
         $dms_direction = array();
 
         $regexp_direction = '/[wens]/i';
-        $regexp_coords = '/^(\d{1,2})(\D+([0-6]?\d)\D+([0-6]?\d(\.(\d+))?\D+)?)?$/';
+        $regexp_coords = '/^(\d{1,3})(\D+([0-6]?\d)\D+([0-6]?\d(\.(\d+))?\D+)?)?$/';
 
         $dms_unidirectional = trim(str_ireplace(array('w', 'e', 'n', 's'), '', $dms));
+
+        //echo $regexp_coords . " " . $dms_unidirectional . " ";
+
         $matches_coords = preg_match($regexp_coords, $dms_unidirectional, $dms_parts);
 
         $matches_direction = preg_match($regexp_direction, $dms, $dms_direction);
@@ -138,7 +141,7 @@ class Smp_Gps_Coordinates {
 
         if ($matches_coords == 0 || $matches_direction == 0) {
             throw new Exception(
-                'Supplied coordinates are not in DMS format');
+                "Supplied coordinates are not in DMS format: $matches_coords, $matches_direction");
         }
 
         array_unshift($dms_parts, $dms_direction[0]);
@@ -163,6 +166,42 @@ class Smp_Gps_Coordinates {
 
         return (float) $decimal;
     }
+
+
+    /**
+     * @param $lat1
+     * @param $lon1
+     * @param $lat2
+     * @param $lon2
+     * @return float meters
+     */
+    public static function getDistanceBetween( $lat1, $lon1, $lat2, $lon2 ) // return: meters {{{
+    {
+        // Returns the "crow-flies" distance (in metres) between two GPS coordinates
+        // XXX  This is a ROUGH estimate!!!!   It may be off by 10% or more.
+        // XXX  It does not consider elevation differences between the two points.
+
+        // This algorithm is courtesy of http://sgowtham.net/blog/2009/08/04/php-calculating-distance-between-two-locations-given-their-gps-coordinates/  {{{
+
+        $earthRadius = 3960.00;			// Miles
+
+        $d = sin( deg2rad( $lat1 ) ) * sin( deg2rad( $lat2 ) ) + cos( deg2rad( $lat1 ) ) * cos( deg2rad( $lat2 ) ) * cos( deg2rad( $lon2-$lon1 ) );
+        $d = acos( $d );
+        $d = rad2deg( $d );
+        $d = $d * 60 * 1.1515;			// 60 nautical miles per degree separation of longitudes.  One nautical mile = 1.1515 statute mile.
+        $d = round( $d, 4 );
+        // }}}
+
+        // Convert miles to KM's...
+        $d = $d * 1.60934;
+
+        // Convert KM's to M's...
+        $d = $d * 1000;
+
+        return ceil( $d );				// Round up to nearest whole meter
+
+    } // }}}
+
 
     /**
      * Converts coordinate from MinDec format to Decimal format

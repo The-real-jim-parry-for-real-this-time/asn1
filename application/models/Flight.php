@@ -49,14 +49,19 @@ class Flight extends Entity
     /**
      * @param $departure integer timestamp
      * @param $arrival integer timestamp
-     * @param $departAirport integer id
-     * @param $arriveAirport integer id
+     * @param $departAirport string airport code
+     * @param $arriveAirport string airport code
      * @param $plane integer id
      * @return bool on valid
      */
     protected static function validateFlightTimes($departure, $arrival, $departAirport, $arriveAirport, $plane) {
 
-        $dummy_distance = 1000;
+        //$dummy_distance = 1000;
+
+
+        $distanceKm = (new Airports)->kilometersBetweenAirports($departAirport, $arriveAirport);
+        if($distanceKm == 0) return false;
+
 
         $plane = (new AirPlanes)->get($plane);
 
@@ -66,7 +71,7 @@ class Flight extends Entity
 
         $cruiseKmPm = ($cruiseKmPh / 60);
 
-        $expectedMinutes = ($dummy_distance / $cruiseKmPm) + 10;
+        $expectedMinutes = ($distanceKm / $cruiseKmPm) + 10;
 
         $scheduledMinutes = round(abs($arrival - $departure) / 60,2);
 
